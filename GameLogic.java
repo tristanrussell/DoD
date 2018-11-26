@@ -8,6 +8,8 @@ public class GameLogic {
 	
 	private Map map;
 
+	private PlayerGold gold;
+
 	private boolean playerTurn = false;
 	
 	/**
@@ -15,6 +17,7 @@ public class GameLogic {
 	 */
 	public GameLogic() {
 		map = new Map();
+		gold = new PlayerGold();
 	}
 
     /**
@@ -40,7 +43,31 @@ public class GameLogic {
      * @param command
      */
     protected void processCommand(String command) {
+        switch (command) {
+            case "HELLO":
+                System.out.println("Gold to win: " + map.getGoldRequired());
+                break;
 
+            case "GOLD":
+                System.out.println("Gold owned: " + gold.getGold());
+                break;
+
+            case "MOVE":
+                break;
+
+            case "PICKUP":
+                break;
+
+            case "LOOK":
+                break;
+
+            case "QUIT":
+                break;
+
+            default:
+                break;
+
+        }
     }
 
     /**
@@ -99,24 +126,5 @@ public class GameLogic {
 	public static void main(String[] args) {
 		GameLogic logic = new GameLogic();
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-		try {
-		    while (logic.acceptInput()) {
-                String command = reader.readLine();
-
-                if (command == null) {
-                    System.exit(0);
-
-                }
-
-                logic.processCommand(command);
-
-            }
-        } catch (IOException e) {
-		    System.err.println(e.getMessage());
-		    System.exit(1);
-
-        }
     }
 }
