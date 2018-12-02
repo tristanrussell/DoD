@@ -12,18 +12,20 @@ public class HumanPlayer {
      * return : A string containing the input the player entered.
      */
     protected String getInputFromConsole() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
         try {
             while (true) {
-                String command = reader.readLine();
+                String command = input.readLine();
 
                 if (command == null) {
                     System.exit(0);
 
                 }
 
-                return this.getNextAction(command);
+                if (command.length() > 0) {
+                    return command;
+                }
 
             }
         } catch (IOException e) {
@@ -41,7 +43,31 @@ public class HumanPlayer {
      *
      * @return : Processed output or Invalid if the @param command is wrong.
      */
-    protected String getNextAction(String command) {
+    protected String getNextAction(GameLogic logic, String command) {
+        switch (command) {
+            case "HELLO":
+                return "Gold to win: " + logic.hello();
+
+            case "GOLD":
+                return "Gold owned: " + logic.gold();
+
+            case "MOVE":
+                break;
+
+            case "PICKUP":
+                break;
+
+            case "LOOK":
+                break;
+
+            case "QUIT":
+                break;
+
+            default:
+                break;
+
+        }
+
         return null;
     }
 
