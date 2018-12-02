@@ -42,7 +42,7 @@ public class GameLogic {
      *
      * @param location
      */
-    protected void changeMap(String location) {
+    protected void changeMap(String location) throws FileNotFoundException {
         map = new Map(location);
     }
 
@@ -109,6 +109,12 @@ public class GameLogic {
 
             while(true) {
                 String location = input.readLine();
+
+                if (location == null) {
+                    System.exit(0);
+
+                }
+
                 // remove error in the case that the user puts a space after the address
                 location = location.split(" ")[0];
 
@@ -124,14 +130,26 @@ public class GameLogic {
                 }
 
             }
+        } catch (FileNotFoundException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error in file name, loading default map...");
+
         } catch(IOException e) {
             System.err.println(e.getMessage());
             System.exit(1);
 
-        } catch(ArrayIndexOutOfBoundsException e) {
-            System.out.println("Error in file name, loading default map...");
-
         }
 
+        System.out.println(logic.map.getMapName());
+
+        for (int i = 0; i < logic.map.getMap().length; i++) {
+            /*
+            for (int j = 0; j < logic.map.getMap()[i].length; j++) {
+                System.out.println(logic.map.getMap()[i][j]);
+
+            }
+            */
+            System.out.println(logic.map.getMap()[i]);
+
+        }
     }
 }
