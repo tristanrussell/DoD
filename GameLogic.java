@@ -40,34 +40,10 @@ public class GameLogic {
 
     /**
      *
-     * @param command
+     * @param location
      */
-    protected void processCommand(String command) {
-        switch (command) {
-            case "HELLO":
-                System.out.println("Gold to win: " + map.getGoldRequired());
-                break;
-
-            case "GOLD":
-                System.out.println("Gold owned: " + gold.getGold());
-                break;
-
-            case "MOVE":
-                break;
-
-            case "PICKUP":
-                break;
-
-            case "LOOK":
-                break;
-
-            case "QUIT":
-                break;
-
-            default:
-                break;
-
-        }
+    protected void changeMap(String location) {
+        map = new Map(location);
     }
 
     /**
@@ -75,8 +51,8 @@ public class GameLogic {
 	 *
      * @return : Gold required to win.
      */
-    protected String hello() {
-        return null;
+    protected int hello() {
+        return map.getGoldRequired();
     }
 	
 	/**
@@ -84,8 +60,8 @@ public class GameLogic {
 	 *
      * @return : Gold currently owned.
      */
-    protected String gold() {
-        return null;
+    protected int gold() {
+        return gold.getGold();
     }
 
     /**
@@ -125,6 +101,37 @@ public class GameLogic {
 	
 	public static void main(String[] args) {
 		GameLogic logic = new GameLogic();
+
+        System.out.println("Enter a file location for your map or leave blank for the default map: ");
+
+        try {
+            BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+
+            while(true) {
+                String location = input.readLine();
+                // remove error in the case that the user puts a space after the address
+                location = location.split(" ")[0];
+
+                if (location.length() > 0) {
+                    System.out.println("Loading map from file location...");
+                    logic.changeMap(location);
+                    break;
+
+                } else {
+                    System.out.println("Loading default map...");
+                    break;
+
+                }
+
+            }
+        } catch(IOException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+
+        } catch(ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error in file name, loading default map...");
+
+        }
 
     }
 }
