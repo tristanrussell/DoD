@@ -39,8 +39,9 @@ public class GameLogic {
     }
 
     /**
+     * Checks for a map file at the specified location and changes the map.
      *
-     * @param location
+     * @param location : The location of the new map file
      */
     protected void changeMap(String location) throws FileNotFoundException {
         map = new Map(location);
