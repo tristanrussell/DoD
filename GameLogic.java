@@ -107,27 +107,22 @@ public class GameLogic {
         try {
             BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
-            while(true) {
-                String location = input.readLine();
+            String location = input.readLine();
 
-                if (location == null) {
-                    System.exit(0);
+            if (location == null) {
+                System.exit(0);
 
-                }
+            }
 
-                // remove error in the case that the user puts a space after the address
-                location = location.split(" ")[0];
+            // remove error in the case that the user puts a space after the address
+            location = location.split(" ")[0];
 
-                if (location.length() > 0) {
-                    System.out.println("Loading map from file location...");
-                    logic.changeMap(location);
-                    break;
+            if (location.length() > 0) {
+                System.out.println("Loading map from file location...");
+                logic.changeMap(location);
 
-                } else {
-                    System.out.println("Loading default map...");
-                    break;
-
-                }
+            } else {
+                System.out.println("Loading default map...");
 
             }
         } catch (FileNotFoundException | ArrayIndexOutOfBoundsException e) {
