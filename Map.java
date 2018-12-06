@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Reads and contains in memory the map of the game.
@@ -15,6 +16,9 @@ public class Map {
 
     /* Gold required for the human player to win */
     private int goldRequired;
+
+    /* */
+    private int playerPosition[];
 
     /**
      * Default constructor, creates the default map "Very small Labyrinth of doom".
@@ -33,6 +37,8 @@ public class Map {
                 {'#','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#'},
                 {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'}
         };
+
+        playerPosition = loadRandomPosition();
     }
 
     /**
@@ -42,6 +48,8 @@ public class Map {
      */
     public Map(String fileName) throws FileNotFoundException {
         readMap(fileName);
+        playerPosition = loadRandomPosition();
+
     }
 
     /**
@@ -109,4 +117,30 @@ public class Map {
     }
 
 
+    /**
+     * @return : A random available location on the map
+     */
+    protected int[] loadRandomPosition() {
+        Random r = new Random();
+
+        while (true) {
+            int randIndex1 = r.nextInt(map.length);
+            int randIndex2 = r.nextInt(map[randIndex1].length);
+            int[] test = new int[2];
+
+            if (map[randIndex1][randIndex2] == '.') {
+                test[0] = randIndex1;
+                test[1] = randIndex2;
+                return test;
+            }
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    protected int[] getPlayerPosition () {
+        return playerPosition;
+    }
 }

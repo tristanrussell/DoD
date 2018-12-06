@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Arrays;
 
 /**
  * Contains the main logic part of the game, as it processes.
@@ -137,15 +138,21 @@ public class GameLogic {
 
         System.out.println(logic.map.getMapName());
 
-        for (int i = 0; i < logic.map.getMap().length; i++) {
+        char[][] newMap = logic.map.getMap();
+        int[] player = logic.map.getPlayerPosition();
+        newMap[player[0]][player[1]] = 'P';
+
+        for (char[] chars : newMap) {
             /*
             for (int j = 0; j < logic.map.getMap()[i].length; j++) {
                 System.out.println(logic.map.getMap()[i][j]);
 
             }
             */
-            System.out.println(logic.map.getMap()[i]);
+            System.out.println(chars);
 
         }
+
+        System.out.println(Arrays.toString(logic.map.getPlayerPosition()));
     }
 }
