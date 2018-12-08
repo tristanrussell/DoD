@@ -121,6 +121,14 @@ public class GameLogic {
      * Quits the game, shutting down the application.
      */
     protected void quitGame() {
+        if (map.onExit() && (gold.getGold() == map.getGoldRequired())) {
+            System.out.println("WIN");
+
+        } else {
+            System.out.println("LOSE");
+
+        }
+        System.exit(0);
 
     }
 	

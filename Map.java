@@ -240,4 +240,8 @@ public class Map {
         }
     }
 
+    protected boolean onExit() {
+        return map[playerPosition[0]][playerPosition[1]] == 'E';
+    }
+
 }
