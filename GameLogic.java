@@ -6,13 +6,17 @@ import java.util.Arrays;
  *
  */
 public class GameLogic {
-	
+
+    /* New Map object */
 	private Map map;
 
+	/* New PlayerGold object */
 	private PlayerGold gold;
 
+	/* Status of the game */
 	private boolean running = false;
 
+	/* Status of the human player's turn */
 	private boolean playerTurn = false;
 	
 	/**

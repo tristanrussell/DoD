@@ -44,7 +44,8 @@ public class Map {
     /**
      * Constructor that accepts a map to read in from.
      *
-     * @param : The filename of the map file.
+     * @param fileName : The filename of the map file.
+     * @throws FileNotFoundException : If the file is not found.
      */
     public Map(String fileName) throws FileNotFoundException {
         readMap(fileName);
@@ -78,7 +79,8 @@ public class Map {
     /**
      * Reads the map from file.
      *
-     * @param : Name of the map's file.
+     * @param fileName : The filename of the map file.
+     * @throws FileNotFoundException : If the file is not found.
      */
     protected void readMap(String fileName) throws FileNotFoundException {
         FileReader newMap = new FileReader(fileName);
