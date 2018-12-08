@@ -92,6 +92,7 @@ public class GameLogic {
      */
     protected String look() {
         char[][] localMap = map.getLocalMap();
+        localMap[2][2] = 'P';
         String mapToString = "";
         for (char[] chars : localMap) {
             mapToString = mapToString.concat(new String(chars) + "\n");
@@ -154,16 +155,32 @@ public class GameLogic {
 
         System.out.println(logic.map.getMapName());
 
+        // DEBUGGING
         char[][] newMap = logic.map.getMap();
         int[] playerPosition = logic.map.getPlayerPosition();
-        newMap[playerPosition[0]][playerPosition[1]] = 'P';
 
-        for (char[] chars : newMap) {
-            System.out.println(chars);
+        for (int y = 0; y < newMap.length; y++) {
+            if (y == playerPosition[0]) {
+                for (int x = 0; x < newMap[y].length; x++) {
+                    if (x == playerPosition[1]) {
+                        System.out.print('P');
+                    } else {
+                        System.out.print(newMap[y][x]);
+
+                    }
+                }
+            } else {
+                for (int x = 0; x < newMap[y].length; x++) {
+                    System.out.print(newMap[y][x]);
+
+                }
+            }
+            System.out.println();
 
         }
 
         System.out.println(Arrays.toString(logic.map.getPlayerPosition()));
+        //END OF DEBUGGING
 
         logic.setGameRunning(true);
         HumanPlayer player = new HumanPlayer();
