@@ -8,7 +8,7 @@ public class HumanPlayer {
 
     /**
      * Reads player's input from the console.
-     * <p>
+     *
      * return : A string containing the input the player entered.
      */
     protected String getInputFromConsole() {
@@ -78,8 +78,5 @@ public class HumanPlayer {
         return null;
 
     }
-
-
-
 
 }

@@ -16,7 +16,7 @@ public class GameLogic {
 	private boolean playerTurn = false;
 	
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public GameLogic() {
 		map = new Map();
@@ -24,7 +24,7 @@ public class GameLogic {
 	}
 
     /**
-	 * Checks if the game is running
+	 * Checks if the game is running.
 	 *
      * @return whether the game is running.
      */
@@ -33,14 +33,14 @@ public class GameLogic {
     }
 
     /**
-     * Sets the game status
+     * Sets the game status.
      */
     protected void setGameRunning(boolean status) {
         running = status;
     }
 
     /**
-     * Checks if it is the players turn
+     * Checks if it is the players turn.
      *
      * @return whether it is the players turn.
      */
@@ -51,7 +51,7 @@ public class GameLogic {
     /**
      * Checks for a map file at the specified location and changes the map.
      *
-     * @param location : The location of the new map file
+     * @param location : The location of the new map file.
      */
     protected void changeMap(String location) throws FileNotFoundException {
         map = new Map(location);
@@ -79,7 +79,7 @@ public class GameLogic {
      * Checks if movement is legal and updates player's location on the map.
      *
      * @param direction : The direction of the movement.
-     * @return : Protocol if success or not.
+     * @return : If the player successfully moved or not.
      */
     protected String move(char direction) {
         return map.movePlayer(direction);
@@ -190,4 +190,5 @@ public class GameLogic {
             System.out.println(toPrint);
         }
     }
+
 }

@@ -118,7 +118,7 @@ public class Map {
 
 
     /**
-     * @return : A random available location on the map
+     * @return : A random available location on the map.
      */
     protected int[] loadRandomPosition() {
         Random r = new Random();
@@ -137,12 +137,18 @@ public class Map {
     }
 
     /**
-     * @return coordinates of the player
+     * @return coordinates of the player.
      */
     protected int[] getPlayerPosition () {
         return playerPosition;
     }
 
+    /**
+     * Checks if movement is legal and updates player's location on the map.
+     *
+     * @param direction : The direction of the movement.
+     * @return : If the player successfully moved or not.
+     */
     protected String movePlayer (char direction) {
         switch (direction) {
             case 'N':
@@ -192,7 +198,7 @@ public class Map {
     }
 
     /**
-     * @return 5 x 5 map centred around the player
+     * @return 5 x 5 map centred around the player.
      */
     protected char[][] getLocalMap() {
         int[] start = {playerPosition[0] - 2, playerPosition[1] - 2};
@@ -222,4 +228,5 @@ public class Map {
         return localArrayList.toArray(new char[5][5]);
 
     }
+
 }

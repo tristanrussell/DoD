@@ -9,7 +9,7 @@ public class PlayerGold {
     private int gold;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public PlayerGold () {
         gold = 0;
@@ -23,11 +23,12 @@ public class PlayerGold {
     }
 
     /**
-     * Increment the player's gold by 1
+     * Increment the player's gold by 1.
      *
      * @return : The player's gold after incrementing.
      */
     public int incrementGold () {
         return ++gold;
     }
+
 }
