@@ -58,7 +58,7 @@ public class HumanPlayer {
                 break;
 
             case "LOOK":
-                break;
+                return logic.look();
 
             case "QUIT":
                 break;

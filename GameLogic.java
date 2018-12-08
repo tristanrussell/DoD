@@ -91,7 +91,14 @@ public class GameLogic {
      * @return : A String representation of the game map.
      */
     protected String look() {
-        return null;
+        char[][] localMap = map.getLocalMap();
+        String mapToString = "";
+        for (char[] chars : localMap) {
+            mapToString = mapToString.concat(new String(chars) + "\n");
+
+        }
+        return mapToString;
+
     }
 
     /**
@@ -152,12 +159,6 @@ public class GameLogic {
         newMap[playerPosition[0]][playerPosition[1]] = 'P';
 
         for (char[] chars : newMap) {
-            /*
-            for (int j = 0; j < logic.map.getMap()[i].length; j++) {
-                System.out.println(logic.map.getMap()[i][j]);
-
-            }
-            */
             System.out.println(chars);
 
         }
