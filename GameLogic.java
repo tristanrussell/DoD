@@ -82,7 +82,7 @@ public class GameLogic {
      * @return : Protocol if success or not.
      */
     protected String move(char direction) {
-        return null;
+        return map.movePlayer(direction);
     }
 
     /**

@@ -17,8 +17,8 @@ public class Map {
     /* Gold required for the human player to win */
     private int goldRequired;
 
-    /* */
-    private int playerPosition[];
+    /* Coordinates of the player as {y, x} */
+    private int[] playerPosition;
 
     /**
      * Default constructor, creates the default map "Very small Labyrinth of doom".
@@ -141,6 +141,54 @@ public class Map {
      */
     protected int[] getPlayerPosition () {
         return playerPosition;
+    }
+
+    protected String movePlayer (char direction) {
+        switch (direction) {
+            case 'N':
+                if (map[playerPosition[0] - 1][playerPosition[1]] == '#') {
+                    return "FAIL\n";
+
+                } else {
+                    playerPosition[0]--;
+                    return "SUCCESS\n";
+
+                }
+
+            case 'E':
+                if (map[playerPosition[0]][playerPosition[1] + 1] == '#') {
+                    return "FAIL\n";
+
+                } else {
+                    playerPosition[1]++;
+                    return "SUCCESS\n";
+
+                }
+
+            case 'S':
+                if (map[playerPosition[0] + 1][playerPosition[1]] == '#') {
+                    return "FAIL\n";
+
+                } else {
+                    playerPosition[0]++;
+                    return "SUCCESS\n";
+
+                }
+
+            case 'W':
+                if (map[playerPosition[0]][playerPosition[1] - 1] == '#') {
+                    return "FAIL\n";
+
+                } else {
+                    playerPosition[1]--;
+                    return "SUCCESS\n";
+
+                }
+
+            default:
+                return "Invalid direction entered\n";
+
+        }
     }
 
     /**

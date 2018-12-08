@@ -44,15 +44,23 @@ public class HumanPlayer {
      * @return : Processed output or Invalid if the @param command is wrong.
      */
     protected String getNextAction(GameLogic logic, String command) {
+        String[] commandSplit = command.split(" ");
+        command = commandSplit[0];
         switch (command) {
             case "HELLO":
-                return "Gold to win: " + logic.hello();
+                return "Gold to win: " + logic.hello() + "\n";
 
             case "GOLD":
-                return "Gold owned: " + logic.gold();
+                return "Gold owned: " + logic.gold() + "\n";
 
             case "MOVE":
-                break;
+                if (commandSplit[1].length() == 1) {
+                    return logic.move(commandSplit[1].charAt(0));
+
+                } else {
+                    return "Invalid direction entered";
+
+                }
 
             case "PICKUP":
                 break;
@@ -67,8 +75,8 @@ public class HumanPlayer {
                 break;
 
         }
-
         return null;
+
     }
 
 
