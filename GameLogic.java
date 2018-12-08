@@ -11,6 +11,8 @@ public class GameLogic {
 
 	private PlayerGold gold;
 
+	private boolean running = false;
+
 	private boolean playerTurn = false;
 	
 	/**
@@ -24,16 +26,23 @@ public class GameLogic {
     /**
 	 * Checks if the game is running
 	 *
-     * @return if the game is running.
+     * @return whether the game is running.
      */
     protected boolean gameRunning() {
         return false;
     }
 
     /**
+     * Sets the game status
+     */
+    protected void setGameRunning(boolean status) {
+        running = status;
+    }
+
+    /**
      * Checks if it is the players turn
      *
-     * @return if it is the players turn.
+     * @return whether it is the players turn.
      */
     protected boolean acceptInput() {
         return playerTurn;
@@ -139,8 +148,8 @@ public class GameLogic {
         System.out.println(logic.map.getMapName());
 
         char[][] newMap = logic.map.getMap();
-        int[] player = logic.map.getPlayerPosition();
-        newMap[player[0]][player[1]] = 'P';
+        int[] playerPosition = logic.map.getPlayerPosition();
+        newMap[playerPosition[0]][playerPosition[1]] = 'P';
 
         for (char[] chars : newMap) {
             /*
@@ -154,5 +163,13 @@ public class GameLogic {
         }
 
         System.out.println(Arrays.toString(logic.map.getPlayerPosition()));
+
+        logic.setGameRunning(true);
+        HumanPlayer player = new HumanPlayer();
+        while (logic.gameRunning()) {
+            String command = player.getInputFromConsole();
+            String toPrint = player.getNextAction(logic, command);
+            System.out.println(toPrint);
+        }
     }
 }
