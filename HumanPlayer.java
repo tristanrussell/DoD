@@ -24,7 +24,7 @@ public class HumanPlayer {
                 }
 
                 if (command.length() > 0) {
-                    return command;
+                    return command.toUpperCase();
                 }
 
             }
