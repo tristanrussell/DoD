@@ -63,20 +63,18 @@ public class HumanPlayer {
                 }
 
             case "PICKUP":
-                break;
+                return logic.pickup() + ". Gold owned: " + logic.gold() + "\n";
 
             case "LOOK":
                 return logic.look();
 
             case "QUIT":
-                break;
+                logic.quitGame();
 
             default:
                 return "Invalid command";
 
         }
-        return null;
-
     }
 
 }
