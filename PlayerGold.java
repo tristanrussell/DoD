@@ -5,28 +5,29 @@
  */
 public class PlayerGold {
 
-    /* Current gold that the human player has */
+    /* Current gold that the player has */
     private int gold;
 
     /**
-     *
+     * Default constructor
      */
     public PlayerGold () {
         gold = 0;
     }
 
     /**
-     *
-     *
-     * @return
+     * @return : The player's gold.
      */
     public int getGold () {
         return gold;
     }
 
-
+    /**
+     * Increment the player's gold by 1
+     *
+     * @return : The player's gold after incrementing.
+     */
     public int incrementGold () {
-        gold++;
-        return gold;
+        return ++gold;
     }
 }
