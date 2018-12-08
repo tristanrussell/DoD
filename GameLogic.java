@@ -108,7 +108,13 @@ public class GameLogic {
      * @return If the player successfully picked-up gold or not.
      */
     protected String pickup() {
-        return null;
+        String result = map.removeGold();
+        if (result.equals("SUCCESS")) {
+            gold.incrementGold();
+
+        }
+        return result;
+
     }
 
     /**

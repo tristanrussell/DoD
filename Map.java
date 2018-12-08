@@ -229,4 +229,15 @@ public class Map {
 
     }
 
+    protected String removeGold() {
+        if (map[playerPosition[0]][playerPosition[1]] == 'G') {
+            map[playerPosition[0]][playerPosition[1]] = '.';
+            return "SUCCESS";
+
+        } else {
+            return "FAIL";
+
+        }
+    }
+
 }
