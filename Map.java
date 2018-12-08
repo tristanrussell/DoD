@@ -137,10 +137,41 @@ public class Map {
     }
 
     /**
-     *
-     * @return
+     * @return coordinates of the player
      */
     protected int[] getPlayerPosition () {
         return playerPosition;
+    }
+
+    /**
+     * @return 5 x 5 map centred around the player
+     */
+    protected char[][] getLocalMap() {
+        int[] start = {playerPosition[0] - 2, playerPosition[1] - 2};
+        int[] end = {playerPosition[0] + 2, playerPosition[1] + 2};
+        ArrayList<char[]> localArrayList = new ArrayList<>(5);
+        for (int y = start[0]; y <= end[0]; y++) {
+            char[] row = new char[5];
+            if (y < 0 || y > map.length) {
+                for (int x = 0; x < 5; x++) {
+                    row[x] = '#';
+
+                }
+            } else {
+                for (int x = start[1]; x <= end[1]; x++) {
+                    if (x < 0 || x > map[y].length) {
+                        row[x] = '#';
+
+                    } else {
+                        row[x] = map[y][x];
+
+                    }
+                }
+            }
+            localArrayList.add(row);
+
+        }
+        return localArrayList.toArray(new char[5][5]);
+
     }
 }
