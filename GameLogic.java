@@ -29,7 +29,7 @@ public class GameLogic {
      * @return whether the game is running.
      */
     protected boolean gameRunning() {
-        return false;
+        return running;
     }
 
     /**
