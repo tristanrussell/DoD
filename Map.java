@@ -152,18 +152,18 @@ public class Map {
         ArrayList<char[]> localArrayList = new ArrayList<>(5);
         for (int y = start[0]; y <= end[0]; y++) {
             char[] row = new char[5];
-            if (y < 0 || y > map.length) {
+            if (y < 0 || y > map.length - 1) {
                 for (int x = 0; x < 5; x++) {
                     row[x] = '#';
 
                 }
             } else {
-                for (int x = start[1]; x <= end[1]; x++) {
-                    if (x < 0 || x > map[y].length) {
+                for (int x = 0; x + start[1] <= end[1]; x++) {
+                    if (x + start[1] < 0 || x + start[1] > map[y].length - 1) {
                         row[x] = '#';
 
                     } else {
-                        row[x] = map[y][x];
+                        row[x] = map[y][x + start[1]];
 
                     }
                 }
