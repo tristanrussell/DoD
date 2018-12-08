@@ -72,7 +72,7 @@ public class HumanPlayer {
                 break;
 
             default:
-                break;
+                return "Invalid command";
 
         }
         return null;
