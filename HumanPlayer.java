@@ -55,10 +55,10 @@ public class HumanPlayer {
 
             case "MOVE":
                 if (commandSplit[1].length() == 1) {
-                    return logic.move(commandSplit[1].charAt(0));
+                    return logic.move(commandSplit[1].charAt(0)) + "\n";
 
                 } else {
-                    return "Invalid direction entered";
+                    return "Invalid direction entered\n";
 
                 }
 

@@ -147,46 +147,46 @@ public class Map {
         switch (direction) {
             case 'N':
                 if (map[playerPosition[0] - 1][playerPosition[1]] == '#') {
-                    return "FAIL\n";
+                    return "FAIL";
 
                 } else {
                     playerPosition[0]--;
-                    return "SUCCESS\n";
+                    return "SUCCESS";
 
                 }
 
             case 'E':
                 if (map[playerPosition[0]][playerPosition[1] + 1] == '#') {
-                    return "FAIL\n";
+                    return "FAIL";
 
                 } else {
                     playerPosition[1]++;
-                    return "SUCCESS\n";
+                    return "SUCCESS";
 
                 }
 
             case 'S':
                 if (map[playerPosition[0] + 1][playerPosition[1]] == '#') {
-                    return "FAIL\n";
+                    return "FAIL";
 
                 } else {
                     playerPosition[0]++;
-                    return "SUCCESS\n";
+                    return "SUCCESS";
 
                 }
 
             case 'W':
                 if (map[playerPosition[0]][playerPosition[1] - 1] == '#') {
-                    return "FAIL\n";
+                    return "FAIL";
 
                 } else {
                     playerPosition[1]--;
-                    return "SUCCESS\n";
+                    return "SUCCESS";
 
                 }
 
             default:
-                return "Invalid direction entered\n";
+                return "Invalid direction entered";
 
         }
     }
