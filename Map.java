@@ -17,9 +17,6 @@ public class Map {
     /* Gold required for the human player to win */
     private int goldRequired;
 
-    /* Coordinates of the player as {y, x} */
-    private int[] playerPosition;
-
     /**
      * Default constructor, creates the default map "Very small Labyrinth of doom".
      */
@@ -37,8 +34,6 @@ public class Map {
                 {'#','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','#'},
                 {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'}
         };
-
-        playerPosition = loadRandomPosition();
     }
 
     /**
@@ -49,7 +44,6 @@ public class Map {
      */
     public Map(String fileName) throws FileNotFoundException {
         readMap(fileName);
-        playerPosition = loadRandomPosition();
 
     }
 
@@ -122,7 +116,7 @@ public class Map {
     /**
      * @return : A random available location on the map.
      */
-    protected int[] loadRandomPosition() {
+    protected int[] getRandomPosition() {
         Random r = new Random();
 
         while (true) {
@@ -134,69 +128,20 @@ public class Map {
                 test[0] = randIndex1;
                 test[1] = randIndex2;
                 return test;
+
             }
         }
     }
 
     /**
-     * @return coordinates of the player.
-     */
-    protected int[] getPlayerPosition () {
-        return playerPosition;
-    }
-
-    /**
-     * Checks if movement is legal and updates player's location on the map.
+     * Checks if there is a wall at the specified location.
      *
-     * @param direction : The direction of the movement.
-     * @return : If the player successfully moved or not.
+     * @param posY : Y coordinate of specified location.
+     * @param posX : X coordinate of specified location.
+     * @return : If there is a wall at the location.
      */
-    protected String movePlayer (char direction) {
-        switch (direction) {
-            case 'N':
-                if (map[playerPosition[0] - 1][playerPosition[1]] == '#') {
-                    return "FAIL";
-
-                } else {
-                    playerPosition[0]--;
-                    return "SUCCESS";
-
-                }
-
-            case 'E':
-                if (map[playerPosition[0]][playerPosition[1] + 1] == '#') {
-                    return "FAIL";
-
-                } else {
-                    playerPosition[1]++;
-                    return "SUCCESS";
-
-                }
-
-            case 'S':
-                if (map[playerPosition[0] + 1][playerPosition[1]] == '#') {
-                    return "FAIL";
-
-                } else {
-                    playerPosition[0]++;
-                    return "SUCCESS";
-
-                }
-
-            case 'W':
-                if (map[playerPosition[0]][playerPosition[1] - 1] == '#') {
-                    return "FAIL";
-
-                } else {
-                    playerPosition[1]--;
-                    return "SUCCESS";
-
-                }
-
-            default:
-                return "Invalid direction entered";
-
-        }
+    protected boolean isWall (int posY, int posX) {
+        return map[posY][posX] == '#';
     }
 
     /**
@@ -233,9 +178,9 @@ public class Map {
 
     }
 
-    protected String removeGold() {
-        if (map[playerPosition[0]][playerPosition[1]] == 'G') {
-            map[playerPosition[0]][playerPosition[1]] = '.';
+    protected String removeGold(int playerY, int playerX) {
+        if (map[playerY][playerX] == 'G') {
+            map[playerY][playerX] = '.';
             return "SUCCESS";
 
         } else {
@@ -244,8 +189,8 @@ public class Map {
         }
     }
 
-    protected boolean onExit() {
-        return map[playerPosition[0]][playerPosition[1]] == 'E';
+    protected boolean onExit(int playerY, int playerX) {
+        return map[playerY][playerX] == 'E';
     }
 
 }

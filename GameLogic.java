@@ -11,7 +11,7 @@ public class GameLogic {
 	private Map map;
 
 	/* New PlayerGold object */
-	private PlayerGold gold;
+	private PlayerInfo info;
 
 	/* Status of the game */
 	private boolean running = false;
@@ -24,7 +24,7 @@ public class GameLogic {
 	 */
 	public GameLogic() {
 		map = new Map();
-		gold = new PlayerGold();
+		info = new PlayerInfo();
 	}
 
     /**
@@ -76,7 +76,7 @@ public class GameLogic {
      * @return : Gold currently owned.
      */
     protected int gold() {
-        return gold.getGold();
+        return info.getGold();
     }
 
     /**
@@ -86,7 +86,32 @@ public class GameLogic {
      * @return : If the player successfully moved or not.
      */
     protected String move(char direction) {
-        return map.movePlayer(direction);
+        int[] player = info.getPlayerPosition();
+        switch (direction) {
+            case 'N':
+                if (!map.isWall((player[0] - 1), player[1])) {
+                    return info.movePlayer('Y', -1);
+                }
+
+            case 'E':
+                if (!map.isWall(player[0], (player[1] + 1))) {
+                    return info.movePlayer('X', 1);
+                }
+
+            case 'S':
+                if (!map.isWall((player[0] + 1), player[1])) {
+                    return info.movePlayer('Y', 1);
+                }
+
+            case 'W':
+                if (!map.isWall(player[0], (player[1] - 1))) {
+                    return info.movePlayer('X', -1);
+                }
+
+            default:
+                return "FAIL";
+
+        }
     }
 
     /**
@@ -95,9 +120,8 @@ public class GameLogic {
      * @return : A String representation of the game map.
      */
     protected String look() {
-        int playerY = map.getPlayerPosition()[0];
-        int playerX = map.getPlayerPosition()[1];
-        char[][] localMap = map.getLocalMap(playerY, playerX);
+        int[] player = info.getPlayerPosition();
+        char[][] localMap = map.getLocalMap(player[0], player[1]);
         localMap[2][2] = 'P';
         String mapToString = "";
         for (char[] chars : localMap) {
@@ -114,9 +138,10 @@ public class GameLogic {
      * @return If the player successfully picked-up gold or not.
      */
     protected String pickup() {
-        String result = map.removeGold();
+        int[] player = info.getPlayerPosition();
+        String result = map.removeGold(player[0], player[1]);
         if (result.equals("SUCCESS")) {
-            gold.incrementGold();
+            info.incrementGold();
 
         }
         return result;
@@ -127,7 +152,8 @@ public class GameLogic {
      * Quits the game, shutting down the application.
      */
     protected void quitGame() {
-        if (map.onExit() && (gold.getGold() == map.getGoldRequired())) {
+        int[] player = info.getPlayerPosition();
+        if (map.onExit(player[0], player[1]) && (info.getGold() == map.getGoldRequired())) {
             System.out.println("WIN");
 
         } else {
@@ -173,11 +199,13 @@ public class GameLogic {
 
         }
 
-        System.out.println(logic.map.getMapName());
+        logic.info.loadStartPosition(logic.map.getRandomPosition());
 
         // DEBUGGING
+        System.out.println(logic.map.getMapName());
+
         char[][] newMap = logic.map.getMap();
-        int[] playerPosition = logic.map.getPlayerPosition();
+        int[] playerPosition = logic.info.getPlayerPosition();
 
         for (int y = 0; y < newMap.length; y++) {
             if (y == playerPosition[0]) {
@@ -199,7 +227,7 @@ public class GameLogic {
 
         }
 
-        System.out.println(Arrays.toString(logic.map.getPlayerPosition()));
+        System.out.println(Arrays.toString(logic.info.getPlayerPosition()));
         //END OF DEBUGGING
 
         logic.setGameRunning(true);
