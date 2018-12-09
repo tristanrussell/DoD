@@ -18,10 +18,22 @@ public class PlayerInfo {
         return playerPosition;
     }
 
+    /**
+     * Sets the position of the player.
+     *
+     * @param startPosition : The position to place the player.
+     */
     protected void loadStartPosition (int[] startPosition) {
         playerPosition = startPosition;
     }
 
+    /**
+     * Moves the player.
+     *
+     * @param axis : The axis on which the player is moving.
+     * @param direction : The direction that the player is moving on the axis.
+     * @return : If the player successfully moved or not.
+     */
     protected String movePlayer (char axis, int direction) {
         switch (axis) {
             case 'Y':
@@ -33,7 +45,7 @@ public class PlayerInfo {
                 return "SUCCESS";
 
             default:
-                return null;
+                return "FAIL";
         }
     }
 
