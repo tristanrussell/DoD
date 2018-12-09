@@ -124,7 +124,7 @@ public class Map {
             int randIndex2 = r.nextInt(map[randIndex1].length);
             int[] test = new int[2];
 
-            if (map[randIndex1][randIndex2] == '.') {
+            if (map[randIndex1][randIndex2] == '.' || map[randIndex1][randIndex2] == 'E') {
                 test[0] = randIndex1;
                 test[1] = randIndex2;
                 return test;
