@@ -89,7 +89,7 @@ public class BotPlayer {
     /**
      * Moves the bot.
      *
-     * @param map : The map that the bot is moving on.
+     * @param map : The current map object being used.
      * @param direction : The direction that the bot should move.
      */
     protected boolean move(Map map, char direction) {
