@@ -13,7 +13,10 @@ public class GameLogic {
 	/* New PlayerGold object */
 	private PlayerInfo info;
 
-	/* Status of the game */
+	/* New BotPlayer object */
+    private BotPlayer bot;
+
+    /* Status of the game */
 	private boolean running = false;
 
 	/* Status of the human player's turn */
@@ -25,6 +28,7 @@ public class GameLogic {
 	public GameLogic() {
 		map = new Map();
 		info = new PlayerInfo();
+        bot = new BotPlayer();
 	}
 
     /**
@@ -120,9 +124,15 @@ public class GameLogic {
      * @return : A String representation of the game map.
      */
     protected String look() {
-        int[] player = info.getPlayerPosition();
-        char[][] localMap = map.getLocalMap(player[0], player[1]);
+        int[] playerPos = info.getPlayerPosition();
+        int[] botPos = bot.getBotPosition();
+        char[][] localMap = map.getLocalMap(playerPos[0], playerPos[1]);
         localMap[2][2] = 'P';
+        int testY = Math.abs(playerPos[0] - botPos[0]);
+        int testX = Math.abs(playerPos[1] - botPos[1]);
+        if (testX < 3 && testY < 3) {
+            localMap[2 + (botPos[0] - playerPos[0])][2 + (botPos[1] - playerPos[1])] = 'B';
+        }
         String mapToString = "";
         for (char[] chars : localMap) {
             mapToString = mapToString.concat(new String(chars) + "\n");
@@ -201,8 +211,6 @@ public class GameLogic {
 
         logic.info.loadStartPosition(logic.map.getRandomPosition());
 
-        BotPlayer bot = new BotPlayer();
-
         int[] playerStartPosition = logic.info.getPlayerPosition();
         int[] botStartPosition;
         int testDistance;
@@ -215,7 +223,7 @@ public class GameLogic {
 
         } while (testDistance < 3);
 
-        bot.loadStartPosition(botStartPosition);
+        logic.bot.loadStartPosition(botStartPosition);
 
         // DEBUGGING
         System.out.println(logic.map.getMapName());
