@@ -173,6 +173,19 @@ public class GameLogic {
         System.exit(0);
 
     }
+
+    /**
+     * Checks if the player has been caught.
+     */
+    private void checkCaught() {
+        boolean sameY = info.getPlayerPosition()[0] == bot.getBotPosition()[0];
+        boolean sameX = info.getPlayerPosition()[1] == bot.getBotPosition()[1];
+        if(sameY && sameX) {
+            System.out.println("LOSE");
+            System.exit(0);
+
+        }
+    }
 	
 	public static void main(String[] args) {
 		GameLogic logic = new GameLogic();
@@ -265,8 +278,12 @@ public class GameLogic {
             String toPrint = player.getNextAction(logic, command);
             System.out.println(toPrint);
 
-            /* Bot Player turn */
+            logic.checkCaught();
 
+            /* Bot Player turn */
+            logic.bot.takeTurn(logic.map);
+
+            logic.checkCaught();
         }
     }
 
