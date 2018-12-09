@@ -200,11 +200,13 @@ public class Map {
     }
 
     /**
-     * @return 5 x 5 map centred around the player.
+     * @param CentreY : The y coordinate of the centre point.
+     * @param CentreX : The x coordinate of the centre point.
+     * @return : 5 x 5 map centred around the specified point.
      */
-    protected char[][] getLocalMap() {
-        int[] start = {playerPosition[0] - 2, playerPosition[1] - 2};
-        int[] end = {playerPosition[0] + 2, playerPosition[1] + 2};
+    protected char[][] getLocalMap(int CentreY, int CentreX) {
+        int[] start = {CentreY - 2, CentreX - 2};
+        int[] end = {CentreY + 2, CentreX + 2};
         ArrayList<char[]> localArrayList = new ArrayList<>(5);
         for (int y = start[0]; y <= end[0]; y++) {
             char[] row = new char[5];
