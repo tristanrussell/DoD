@@ -95,7 +95,9 @@ public class GameLogic {
      * @return : A String representation of the game map.
      */
     protected String look() {
-        char[][] localMap = map.getLocalMap();
+        int playerY = map.getPlayerPosition()[0];
+        int playerX = map.getPlayerPosition()[1];
+        char[][] localMap = map.getLocalMap(playerY, playerX);
         localMap[2][2] = 'P';
         String mapToString = "";
         for (char[] chars : localMap) {
