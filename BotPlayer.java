@@ -3,11 +3,14 @@ import java.util.Random;
 
 public class BotPlayer {
 
-    /* Action to perform in the bot's rotation of moves */
-    private int turnInRotation = 1;
-
     /* Coordinates of the bot as {y, x} */
     private int[] botPosition;
+
+    /* Local map around bot */
+    private char[][] mapMemory;
+
+    /* The position of the bot relative to the map in mapMemory */
+    private int[] savedPosition = new int[2];
 
     /**
      * Default constructor.
@@ -33,15 +36,14 @@ public class BotPlayer {
     }
 
     /**
-     * @return : The next move in the rotation to make.
+     * @return : The next move to make.
      */
-    protected int nextMove() {
-        if (turnInRotation == 3) {
-            turnInRotation = 1;
-            return 3;
+    protected String nextMove() {
+        if (savedPosition[0] == 0 || savedPosition[0] == 4 || savedPosition[1] == 0 || savedPosition[1] == 4) {
+            return "LOOK";
 
         }
-        return turnInRotation++;
+        return "MOVE";
 
     }
 
@@ -51,59 +53,98 @@ public class BotPlayer {
      * @param map : The current map object being used.
      */
     protected void takeTurn(Map map) {
+        boolean result;
         switch (this.nextMove()) {
-            case 1:
-                map.getLocalMap(botPosition[0], botPosition[1]);
+            case "LOOK":
+                savedPosition[0] = 2;
+                savedPosition[1] = 2;
+                mapMemory = map.getLocalMap(botPosition[0], botPosition[1]);
                 break;
 
-            case 2:
-                this.moveRandom(map);
-                break;
-
-            case 3:
-                this.moveRandom(map);
+            case "MOVE":
+                do {
+                    result = move(map, randDirection());
+                } while(!result);
                 break;
 
             default:
                 break;
         }
 
+        // DEBUGGING
         System.out.println(Arrays.toString(botPosition));
     }
 
-    protected void moveRandom(Map map) {
+    /**
+     * @return : A random direction for the bot to move in.
+     */
+    protected char randDirection() {
         char[] directions = {'N', 'E', 'S', 'W'};
         Random r = new Random();
         int randDirection = r.nextInt(4);
-        this.move(map, directions[randDirection]);
+        return directions[randDirection];
 
     }
 
-    protected void move(Map map, char direction) {
+    /**
+     * Moves the bot.
+     *
+     * @param map : The map that the bot is moving on.
+     * @param direction : The direction that the bot should move.
+     */
+    protected boolean move(Map map, char direction) {
         switch (direction) {
             case 'N':
+                if (mapMemory[savedPosition[0] - 1][savedPosition[1]] == '#') {
+                    return false;
+
+                }
                 if (!map.isWall((botPosition[0] - 1), botPosition[1])) {
                     botPosition[0]--;
+                    savedPosition[0]--;
+
                 }
-                break;
+                return true;
 
             case 'E':
+                if (mapMemory[savedPosition[0]][savedPosition[1] + 1] == '#') {
+                    return false;
+
+
+                }
                 if (!map.isWall(botPosition[0], (botPosition[1] + 1))) {
                     botPosition[1]++;
+                    savedPosition[1]++;
+
                 }
-                break;
+                return true;
 
             case 'S':
+                if (mapMemory[savedPosition[0] + 1][savedPosition[1]] == '#') {
+                    return false;
+
+                }
                 if (!map.isWall((botPosition[0] + 1), botPosition[1])) {
                     botPosition[0]++;
+                    savedPosition[0]++;
+
                 }
-                break;
+                return true;
 
             case 'W':
+                if (mapMemory[savedPosition[0]][savedPosition[1] - 1] == '#') {
+                    return false;
+
+                }
                 if (!map.isWall(botPosition[0], (botPosition[1] - 1))) {
                     botPosition[1]--;
+                    savedPosition[1]--;
+
                 }
-                break;
+                return true;
+
+            default:
+                return false;
 
         }
     }
