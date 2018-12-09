@@ -95,22 +95,30 @@ public class GameLogic {
             case 'N':
                 if (!map.isWall((player[0] - 1), player[1])) {
                     return info.movePlayer('Y', -1);
+
                 }
+                return "FAIL";
 
             case 'E':
                 if (!map.isWall(player[0], (player[1] + 1))) {
                     return info.movePlayer('X', 1);
+
                 }
+                return "FAIL";
 
             case 'S':
                 if (!map.isWall((player[0] + 1), player[1])) {
                     return info.movePlayer('Y', 1);
+
                 }
+                return "FAIL";
 
             case 'W':
                 if (!map.isWall(player[0], (player[1] - 1))) {
                     return info.movePlayer('X', -1);
+
                 }
+                return "FAIL";
 
             default:
                 return "FAIL";
