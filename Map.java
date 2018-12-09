@@ -141,7 +141,12 @@ public class Map {
      * @return : If there is a wall at the location.
      */
     protected boolean notWall(int posY, int posX) {
-        return map[posY][posX] != '#';
+        boolean yInRange = (posY >= 0 && posY < map.length);
+        boolean xInRange = false;
+        if (yInRange) {
+            xInRange = (posX >= 0 && posX < map[posY].length);
+        }
+        return (yInRange && xInRange && map[posY][posX] != '#');
     }
 
     /**
