@@ -27,8 +27,8 @@ public class PlayerGold {
      *
      * @return : The player's gold after incrementing.
      */
-    public int incrementGold () {
-        return ++gold;
+    public void incrementGold () {
+        gold++;
     }
 
 }
