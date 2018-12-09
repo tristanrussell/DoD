@@ -59,7 +59,7 @@ have the option of 6 different actions on your turn, these should be typed into 
           then you will lose the game.
 
 (NOTE: ALL inputs will count as actions, whether valid or not, and will end your turn, input is not
-case sensitive but you WILL be penalised for misspelling a command or entering an invalid command.
+case sensitive but you WILL miss your go for misspelling a command or entering an invalid command.
 Also, valid inputs will use a turn whether they succeed or not.)
 
 After you have finished your turn, Lord Michael will take his turn. Lord Michael takes turns just
