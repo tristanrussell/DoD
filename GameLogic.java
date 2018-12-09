@@ -219,7 +219,7 @@ public class GameLogic {
             botStartPosition = logic.map.getRandomPosition();
             int testY = Math.abs(playerStartPosition[0] - botStartPosition[0]);
             int testX = Math.abs(playerStartPosition[1] - botStartPosition[1]);
-            testDistance = Math.min(testY, testX);
+            testDistance = Math.max(testY, testX);
 
         } while (testDistance < 3);
 
