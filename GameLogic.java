@@ -189,7 +189,7 @@ public class GameLogic {
         boolean sameY = info.getPlayerPosition()[0] == bot.getBotPosition()[0];
         boolean sameX = info.getPlayerPosition()[1] == bot.getBotPosition()[1];
         if(sameY && sameX) {
-            System.out.println("LOSE");
+            System.out.println("You have been caught\nLOSE");
             System.exit(0);
 
         }
