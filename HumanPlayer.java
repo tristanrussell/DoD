@@ -54,7 +54,7 @@ public class HumanPlayer {
                 return "Gold owned: " + logic.gold() + "\n";
 
             case "MOVE":
-                if (commandSplit[1].length() == 1) {
+                if (commandSplit.length > 1 && commandSplit[1].length() == 1) {
                     return logic.move(commandSplit[1].charAt(0)) + "\n";
 
                 } else {
