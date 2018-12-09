@@ -201,17 +201,36 @@ public class GameLogic {
 
         logic.info.loadStartPosition(logic.map.getRandomPosition());
 
+        BotPlayer bot = new BotPlayer();
+
+        int[] playerStartPosition = logic.info.getPlayerPosition();
+        int[] botStartPosition;
+        int testDistance;
+
+        do {
+            botStartPosition = logic.map.getRandomPosition();
+            int testY = Math.abs(playerStartPosition[0] - botStartPosition[0]);
+            int testX = Math.abs(playerStartPosition[1] - botStartPosition[1]);
+            testDistance = Math.min(testY, testX);
+
+        } while (testDistance < 3);
+
+        bot.loadStartPosition(botStartPosition);
+
         // DEBUGGING
         System.out.println(logic.map.getMapName());
 
         char[][] newMap = logic.map.getMap();
-        int[] playerPosition = logic.info.getPlayerPosition();
 
         for (int y = 0; y < newMap.length; y++) {
-            if (y == playerPosition[0]) {
+            if (y == playerStartPosition[0] || y == botStartPosition[0]) {
                 for (int x = 0; x < newMap[y].length; x++) {
-                    if (x == playerPosition[1]) {
+                    if (x == playerStartPosition[1] && y == playerStartPosition[0]) {
                         System.out.print('P');
+
+                    } else if (x == botStartPosition[1] && y == botStartPosition[0]) {
+                        System.out.print('B');
+
                     } else {
                         System.out.print(newMap[y][x]);
 
@@ -230,12 +249,16 @@ public class GameLogic {
         System.out.println(Arrays.toString(logic.info.getPlayerPosition()));
         //END OF DEBUGGING
 
-        logic.setGameRunning(true);
         HumanPlayer player = new HumanPlayer();
+        logic.setGameRunning(true);
         while (logic.gameRunning()) {
+            /* Human Player turn */
             String command = player.getInputFromConsole();
             String toPrint = player.getNextAction(logic, command);
             System.out.println(toPrint);
+
+            /* Bot Player turn */
+
         }
     }
 
