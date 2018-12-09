@@ -140,8 +140,8 @@ public class Map {
      * @param posX : X coordinate of specified location.
      * @return : If there is a wall at the location.
      */
-    protected boolean isWall (int posY, int posX) {
-        return map[posY][posX] == '#';
+    protected boolean notWall(int posY, int posX) {
+        return map[posY][posX] != '#';
     }
 
     /**

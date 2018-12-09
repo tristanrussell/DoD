@@ -144,7 +144,7 @@ public class BotPlayer {
                     return false;
 
                 }
-                if (!map.isWall((botPosition[0] - 1), botPosition[1])) {
+                if (map.notWall((botPosition[0] - 1), botPosition[1])) {
                     botPosition[0]--;
                     if (--savedPosition[0] == 0) {
                         if (!isPlayer) {
@@ -160,7 +160,7 @@ public class BotPlayer {
                     return false;
 
                 }
-                if (!map.isWall(botPosition[0], (botPosition[1] + 1))) {
+                if (map.notWall(botPosition[0], (botPosition[1] + 1))) {
                     botPosition[1]++;
                     if (++savedPosition[1] == 4) {
                         if (!isPlayer) {
@@ -176,7 +176,7 @@ public class BotPlayer {
                     return false;
 
                 }
-                if (!map.isWall((botPosition[0] + 1), botPosition[1])) {
+                if (map.notWall((botPosition[0] + 1), botPosition[1])) {
                     botPosition[0]++;
                     if (++savedPosition[0] == 4) {
                         if (!isPlayer) {
@@ -192,7 +192,7 @@ public class BotPlayer {
                     return false;
 
                 }
-                if (!map.isWall(botPosition[0], (botPosition[1] - 1))) {
+                if (map.notWall(botPosition[0], (botPosition[1] - 1))) {
                     botPosition[1]--;
                     if (--savedPosition[1] == 0) {
                         if (!isPlayer) {
