@@ -13,6 +13,13 @@ public class BotPlayer {
         botPosition = startPosition;
     }
 
+    /**
+     * @return coordinates of the bot.
+     */
+    protected int[] getBotPosition () {
+        return botPosition;
+    }
+
     protected void takeTurn(Map map) {
         switch (turnInRotation++) {
             case 1:
