@@ -289,7 +289,7 @@ public class GameLogic {
             logic.checkCaught();
 
             /* Bot Player turn */
-            logic.bot.takeTurn(logic.map);
+            logic.bot.takeTurn(logic.map, logic.info);
 
             logic.checkCaught();
         }
