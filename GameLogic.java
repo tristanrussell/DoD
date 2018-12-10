@@ -242,12 +242,12 @@ public class GameLogic {
             int testX = Math.abs(playerStartPosition[1] - botStartPosition[1]);
             testDistance = Math.max(testY, testX);
 
-        } while (testDistance < 3);
+        } while (testDistance < 2);
 
         logic.bot.loadStartPosition(botStartPosition);
 
         // DEBUGGING
-        System.out.println(logic.map.getMapName());
+        System.out.println("Map Name: " + logic.map.getMapName());
 
         char[][] newMap = logic.map.getMap();
 
