@@ -291,6 +291,8 @@ public class GameLogic {
 
         }
 
+        System.out.println("Map Name: " + logic.map.getMapName() + "\n");
+
         int maxBots = logic.map.getMaxBots();
         if (maxBots == 0) {
             logic.loadStartPositions();
@@ -303,19 +305,19 @@ public class GameLogic {
 
                 int numOfBots = Integer.parseInt(numInput);
                 if (numOfBots > maxBots) {
-                    System.out.println("Too many bots, loading " + maxBots + " bots...");
+                    System.out.println("Too many bots, loading " + maxBots + " bots...\n");
                     logic.addBot(maxBots);
                     logic.loadStartPositions();
 
                 } else {
-                    System.out.println("Loading " + Math.max(numOfBots, 0) + " bots...");
+                    System.out.println("Loading " + Math.max(numOfBots, 0) + " bots...\n");
                     logic.addBot(numOfBots);
                     logic.loadStartPositions();
 
                 }
 
             } catch(NumberFormatException e) {
-                System.out.println("Invalid input, loading 1 bot...");
+                System.out.println("Invalid input, loading 1 bot...\n");
                 logic.addBot(1);
                 logic.loadStartPositions();
 
@@ -326,10 +328,9 @@ public class GameLogic {
             }
         }
 
-        System.out.println("Map Name: " + logic.map.getMapName());
-
         HumanPlayer player = new HumanPlayer();
         logic.setGameRunning(true);
+        System.out.println("The hunt begins.\n");
         while (logic.gameRunning()) {
             /* Human Player turn */
             String command = player.getInputFromConsole();
