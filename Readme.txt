@@ -19,6 +19,11 @@ the C drive, any drive will do). If you do not have a map file to use, you can j
 the default map, 'Very small Labyrinth of Doom', will be loaded. In the case that the map file
 location you specified cannot be found, this default map will be loaded.
 
+(NOTE: map files must have both width and height greater than or equal to 5, or else the map would
+be almost impossible, they must have at least one exit tile, they must have enough gold tiles so
+that the player can reach the win condition and they must only contain gold, exit, wall and blank
+tiles. The map must also have at least 12 tiles that are not gold.)
+
 
 HOW TO PLAY:
 
