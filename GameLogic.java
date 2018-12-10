@@ -309,6 +309,7 @@ public class GameLogic {
                     logic.loadStartPositions();
 
                 } else {
+                    System.out.println("Loading " + Math.max(numOfBots, 0) + " bots...");
                     logic.addBot(numOfBots);
                     logic.loadStartPositions();
 
