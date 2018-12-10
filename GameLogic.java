@@ -61,7 +61,7 @@ public class GameLogic {
      *
      * @param location : The location of the new map file.
      */
-    protected void changeMap(String location) throws FileNotFoundException {
+    protected void changeMap(String location) throws FileNotFoundException, IllegalMapException {
         map = new Map(location);
     }
 
@@ -221,6 +221,9 @@ public class GameLogic {
                 System.out.println("Loading default map...");
 
             }
+        } catch(IllegalMapException e) {
+            System.out.println("Error in map, loading default map...");
+
         } catch (FileNotFoundException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Error in file name, loading default map...");
 

@@ -17,6 +17,9 @@ public class Map {
     /* Gold required for the human player to win */
     private int goldRequired;
 
+    /* Number of bots allowed in the game */
+    private int maxBots = 3;
+
     /**
      * Default constructor, creates the default map "Very small Labyrinth of doom".
      */
@@ -42,8 +45,9 @@ public class Map {
      * @param fileName : The filename of the map file.
      * @throws FileNotFoundException : If the file is not found.
      */
-    public Map(String fileName) throws FileNotFoundException {
+    public Map(String fileName) throws FileNotFoundException, IllegalMapException {
         readMap(fileName);
+        checkMap();
 
     }
 
@@ -112,6 +116,76 @@ public class Map {
 
     }
 
+    /**
+     * Checks the map is a valid map.
+     *
+     * @throws IllegalMapException : If there is an error in the map.
+     */
+    protected void checkMap() throws IllegalMapException {
+        int maxLineLength = 0;
+        int spaceCount = 0;
+        int goldCount = 0;
+        int exitCount = 0;
+
+        if (map.length < 5) {
+            throw new IllegalMapException();
+
+        }
+
+        for (char[] line : map) {
+            if (line.length > maxLineLength) {
+                maxLineLength = line.length;
+
+            }
+
+            for (char c : line) {
+                switch (c) {
+                    case '.':
+                        spaceCount++;
+                        break;
+
+                    case 'G':
+                        spaceCount++;
+                        goldCount++;
+                        break;
+
+                    case 'E':
+                        spaceCount++;
+                        exitCount++;
+                        break;
+
+                    case '#':
+                        break;
+
+                    default:
+                        throw new IllegalMapException();
+
+                }
+            }
+        }
+
+        if ((exitCount < 1) || (goldCount < goldRequired) || (maxLineLength < 5) || (goldCount > spaceCount - 12)) {
+            throw new IllegalMapException();
+
+        }
+
+        if (spaceCount < 50) {
+            maxBots = 1;
+
+        } else if (spaceCount < 100) {
+            maxBots = 2;
+
+        }
+
+
+    }
+
+    /**
+     * @return : The maximum number of bots the max can contain.
+     */
+    protected int getMaxBots() {
+        return maxBots;
+    }
 
     /**
      * @return : A random available location on the map.
