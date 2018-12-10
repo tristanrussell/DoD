@@ -4,14 +4,14 @@ import java.io.*;
  * Runs the game with a human player and contains code needed to read inputs.
  *
  */
-public class HumanPlayer {
+class HumanPlayer {
 
     /**
      * Reads player's input from the console.
      *
-     * return : A string containing the input the player entered.
+     * @return : A string containing the input the player entered.
      */
-    protected String getInputFromConsole() {
+    String getInputFromConsole() {
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
         try {
@@ -38,12 +38,13 @@ public class HumanPlayer {
     }
 
     /**
-     * Processes the command. It should return a reply in form of a String, as the protocol dictates.
-     * Otherwise it should return the string "Invalid".
+     * Processes the command.
      *
+     * @param logic : The GameLogic object to call actions on.
+     * @param command : The command that the user typed in.
      * @return : Processed output or Invalid if the @param command is wrong.
      */
-    protected String getNextAction(GameLogic logic, String command) {
+    String getNextAction(GameLogic logic, String command) {
         String[] commandSplit = command.split(" ");
         command = commandSplit[0];
         switch (command) {

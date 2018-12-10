@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Contains the main logic part of the game, as it processes.
@@ -16,9 +15,6 @@ public class GameLogic {
 
     /* Status of the game */
 	private boolean running = false;
-
-	/* Status of the human player's turn */
-	private boolean playerTurn = false;
 
 	/* List of bots in the game */
     private ArrayList<BotPlayer> botList;
@@ -37,39 +33,35 @@ public class GameLogic {
 	 *
      * @return whether the game is running.
      */
-    protected boolean gameRunning() {
+    private boolean gameRunning() {
         return running;
     }
 
     /**
      * Sets the game status.
      */
-    protected void setGameRunning(boolean status) {
+    private void setGameRunning(boolean status) {
         running = status;
-    }
 
-    /**
-     * Checks if it is the players turn.
-     *
-     * @return whether it is the players turn.
-     */
-    protected boolean acceptInput() {
-        return playerTurn;
     }
 
     /**
      * Checks for a map file at the specified location and changes the map.
      *
      * @param location : The location of the new map file.
+     * @throws FileNotFoundException : If the file is not found.
+     * @throws IllegalMapException : If the map contains an error.
      */
-    protected void changeMap(String location) throws FileNotFoundException, IllegalMapException {
+    private void changeMap(String location) throws FileNotFoundException, IllegalMapException {
         map = new Map(location);
     }
 
     /**
-     * Creates a new bot and adds it to the bot list.
+     * Creates new bots and adds them to the bot list.
+     *
+     * @param number : The number of bots to create.
      */
-    protected void addBot(int number) {
+    private void addBot(int number) {
         for (int i = 0; i < number; i++) {
             BotPlayer newBot = new BotPlayer();
             botList.add(newBot);
@@ -77,7 +69,10 @@ public class GameLogic {
         }
     }
 
-    protected void loadStartPositions() {
+    /**
+     * Loads the start positions of the player and all the bots.
+     */
+    private void loadStartPositions() {
         info.loadStartPosition(map.getRandomPosition());
 
         int[] playerStartPosition = info.getPlayerPosition();
@@ -108,7 +103,10 @@ public class GameLogic {
         }
     }
 
-    protected void moveBots() {
+    /**
+     * Iterates through the bots and lets each one take its next turn.
+     */
+    private void moveBots() {
         for (BotPlayer bot : botList) {
             bot.takeTurn(map, info);
 
@@ -120,7 +118,7 @@ public class GameLogic {
 	 *
      * @return : Gold required to win.
      */
-    protected int hello() {
+    int hello() {
         return map.getGoldRequired();
     }
 	
@@ -129,7 +127,7 @@ public class GameLogic {
 	 *
      * @return : Gold currently owned.
      */
-    protected int gold() {
+    int gold() {
         return info.getGold();
     }
 
@@ -139,7 +137,7 @@ public class GameLogic {
      * @param direction : The direction of the movement.
      * @return : If the player successfully moved or not.
      */
-    protected String move(char direction) {
+    String move(char direction) {
         int[] player = info.getPlayerPosition();
         switch (direction) {
             case 'N':
@@ -181,7 +179,7 @@ public class GameLogic {
      *
      * @return : A String representation of the game map.
      */
-    protected String look() {
+    String look() {
         int[] playerPos = info.getPlayerPosition();
         char[][] localMap = map.getLocalMap(playerPos[0], playerPos[1]);
         localMap[2][2] = 'P';
@@ -211,7 +209,7 @@ public class GameLogic {
      *
      * @return If the player successfully picked-up gold or not.
      */
-    protected String pickup() {
+    String pickup() {
         int[] player = info.getPlayerPosition();
         String result = map.removeGold(player[0], player[1]);
         if (result.equals("SUCCESS")) {
@@ -225,9 +223,10 @@ public class GameLogic {
     /**
      * Quits the game, shutting down the application.
      */
-    protected void quitGame() {
+    void quitGame() {
+        setGameRunning(false);
         int[] player = info.getPlayerPosition();
-        if (map.onExit(player[0], player[1]) && (info.getGold() == map.getGoldRequired())) {
+        if (map.onExit(player[0], player[1]) && (info.getGold() >= map.getGoldRequired())) {
             System.out.println("WIN");
 
         } else {
@@ -246,6 +245,7 @@ public class GameLogic {
             boolean sameY = info.getPlayerPosition()[0] == bot.getBotPosition()[0];
             boolean sameX = info.getPlayerPosition()[1] == bot.getBotPosition()[1];
             if (sameY && sameX) {
+                setGameRunning(false);
                 System.out.println("You have been caught\nLOSE");
                 System.exit(0);
 
@@ -328,39 +328,6 @@ public class GameLogic {
 
         System.out.println("Map Name: " + logic.map.getMapName());
 
-        // DEBUGGING
-        /*
-        char[][] newMap = logic.map.getMap();
-        int[] playerStartPosition = logic.info.getPlayerPosition();
-
-        for (int y = 0; y < newMap.length; y++) {
-            if (y == playerStartPosition[0] || y == botStartPosition[0]) {
-                for (int x = 0; x < newMap[y].length; x++) {
-                    if (x == playerStartPosition[1] && y == playerStartPosition[0]) {
-                        System.out.print('P');
-
-                    } else if (x == botStartPosition[1] && y == botStartPosition[0]) {
-                        System.out.print('B');
-
-                    } else {
-                        System.out.print(newMap[y][x]);
-
-                    }
-                }
-            } else {
-                for (int x = 0; x < newMap[y].length; x++) {
-                    System.out.print(newMap[y][x]);
-
-                }
-            }
-            System.out.println();
-
-        }
-
-        */
-        System.out.println(Arrays.toString(logic.info.getPlayerPosition()));
-        //END OF DEBUGGING
-
         HumanPlayer player = new HumanPlayer();
         logic.setGameRunning(true);
         while (logic.gameRunning()) {
@@ -373,7 +340,6 @@ public class GameLogic {
 
             /* Bot Player turn */
             logic.moveBots();
-            //logic.bot.takeTurn(logic.map, logic.info);
 
             logic.checkCaught();
         }

@@ -1,7 +1,11 @@
 import java.util.Arrays;
 import java.util.Random;
 
-public class BotPlayer {
+/**
+ * Controls the logic of the bot.
+ *
+ */
+class BotPlayer {
 
     /* Coordinates of the bot as {y, x} */
     private int[] botPosition;
@@ -9,11 +13,13 @@ public class BotPlayer {
     /* Local map around bot */
     private char[][] mapMemory;
 
+    /* Whether to update mapMemory as next move. */
     private boolean toUpdate = true;
 
     /* The position of the bot relative to the map in mapMemory */
     private int[] savedPosition = new int[2];
 
+    /* Whether the player has been spotted. */
     private boolean isPlayer = false;
 
     /* Coordinates of the player if they are found */
@@ -22,7 +28,7 @@ public class BotPlayer {
     /**
      * Default constructor.
      */
-    public BotPlayer() {
+    BotPlayer() {
 
     }
 
@@ -31,21 +37,21 @@ public class BotPlayer {
      *
      * @param startPosition : The position to place the bot.
      */
-    protected void loadStartPosition(int[] startPosition) {
+    void loadStartPosition(int[] startPosition) {
         botPosition = startPosition;
     }
 
     /**
      * @return coordinates of the bot.
      */
-    protected int[] getBotPosition () {
+    int[] getBotPosition() {
         return botPosition;
     }
 
     /**
      * @return : The next move to make.
      */
-    protected String nextMove() {
+    private String nextMove() {
         if (toUpdate) {
             toUpdate = false;
             return "LOOK";
@@ -59,8 +65,9 @@ public class BotPlayer {
      * Performs the next move in the bot's rotation of moves.
      *
      * @param map : The current map object being used.
+     * @param player : The PlayerInfo object that the player is using.
      */
-    protected void takeTurn(Map map, PlayerInfo player) {
+    void takeTurn(Map map, PlayerInfo player) {
         boolean hasMoved;
         switch (this.nextMove()) {
             case "LOOK":
@@ -78,13 +85,17 @@ public class BotPlayer {
 
             default:
                 break;
-        }
 
-        // DEBUGGING
-        System.out.println(Arrays.toString(botPosition));
+        }
     }
 
-    protected boolean checkForPlayer(PlayerInfo player) {
+    /**
+     * Checks whether the player was found during a look action.
+     *
+     * @param player : The PlayerInfo object that has the player's position.
+     * @return : Whether the player was found.
+     */
+    private boolean checkForPlayer(PlayerInfo player) {
         int[] playerPos = player.getPlayerPosition();
         int testY = Math.abs(playerPos[0] - botPosition[0]);
         int testX = Math.abs(playerPos[1] - botPosition[1]);
@@ -102,7 +113,7 @@ public class BotPlayer {
     /**
      * @return : A random direction for the bot to move in.
      */
-    protected char randDirection() {
+    private char randDirection() {
         char[] directions = {'N', 'E', 'S', 'W'};
         Random r = new Random();
         int randDirection = r.nextInt(4);
@@ -115,8 +126,9 @@ public class BotPlayer {
      *
      * @param map : The current map object being used.
      * @param direction : The direction that the bot should move.
+     * @return : Whether the move was successful.
      */
-    protected boolean move(Map map, char direction) {
+    private boolean move(Map map, char direction) {
         if (isPlayer) {
             if(Math.abs(savedPosition[0] - playerPosition[0]) > Math.abs(savedPosition[1] - playerPosition[1])) {
                 if (savedPosition[0] < playerPosition[0]) {

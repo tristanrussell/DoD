@@ -6,7 +6,7 @@ import java.util.Random;
  * Reads and contains in memory the map of the game.
  *
  */
-public class Map {
+class Map {
 
     /* Representation of the map */
     private char[][] map;
@@ -23,7 +23,7 @@ public class Map {
     /**
      * Default constructor, creates the default map "Very small Labyrinth of doom".
      */
-    public Map() {
+    Map() {
         mapName = "Very small Labyrinth of Doom";
         goldRequired = 2;
         map = new char[][]{
@@ -44,8 +44,9 @@ public class Map {
      *
      * @param fileName : The filename of the map file.
      * @throws FileNotFoundException : If the file is not found.
+     * @throws IllegalMapException : If the map contains an error.
      */
-    public Map(String fileName) throws FileNotFoundException, IllegalMapException {
+    Map(String fileName) throws FileNotFoundException, IllegalMapException {
         readMap(fileName);
         checkMap();
 
@@ -54,35 +55,26 @@ public class Map {
     /**
      * @return : Gold required to exit the current map.
      */
-    protected int getGoldRequired() {
+    int getGoldRequired() {
         return goldRequired;
     }
 
     /**
-     * @return : The map as stored in memory.
-     */
-    protected char[][] getMap() {
-        return map;
-    }
-
-
-    /**
      * @return : The name of the current map.
      */
-    protected String getMapName() {
+    String getMapName() {
         return mapName;
     }
 
-
     /**
-     * Reads the map from file.
+     * Reads the map from a file.
      *
-     * @param fileName : The filename of the map file.
+     * @param fileName : The location of the map file.
      * @throws FileNotFoundException : If the file is not found.
      */
-    protected void readMap(String fileName) throws FileNotFoundException {
+    private void readMap(String fileName) throws FileNotFoundException {
         FileReader newMap = new FileReader(fileName);
-        String newLine = null;
+        String newLine;
         ArrayList<char[]> mapArrayList = new ArrayList<>();
 
         try {
@@ -117,11 +109,11 @@ public class Map {
     }
 
     /**
-     * Checks the map is a valid map.
+     * Checks if the map is a valid map.
      *
      * @throws IllegalMapException : If there is an error in the map.
      */
-    protected void checkMap() throws IllegalMapException {
+    private void checkMap() throws IllegalMapException {
         int spaceCount = 0;
         int goldCount = 0;
         int exitCount = 0;
@@ -170,16 +162,16 @@ public class Map {
     }
 
     /**
-     * @return : The maximum number of bots the max can contain.
+     * @return : The maximum number of bots the map can contain.
      */
-    protected int getMaxBots() {
+    int getMaxBots() {
         return maxBots;
     }
 
     /**
      * @return : A random available location on the map.
      */
-    protected int[] getRandomPosition() {
+    int[] getRandomPosition() {
         Random r = new Random();
 
         while (true) {
@@ -201,9 +193,9 @@ public class Map {
      *
      * @param posY : Y coordinate of specified location.
      * @param posX : X coordinate of specified location.
-     * @return : If there is a wall at the location.
+     * @return : If there is not a wall at the location.
      */
-    protected boolean notWall(int posY, int posX) {
+    boolean notWall(int posY, int posX) {
         boolean yInRange = (posY >= 0 && posY < map.length);
         boolean xInRange = false;
         if (yInRange) {
@@ -213,11 +205,13 @@ public class Map {
     }
 
     /**
+     * Constructs a 5 x 5 grid around the specified location.
+     *
      * @param CentreY : The y coordinate of the centre point.
      * @param CentreX : The x coordinate of the centre point.
-     * @return : 5 x 5 map centred around the specified point.
+     * @return : The constructed grid.
      */
-    protected char[][] getLocalMap(int CentreY, int CentreX) {
+    char[][] getLocalMap(int CentreY, int CentreX) {
         int[] start = {CentreY - 2, CentreX - 2};
         int[] end = {CentreY + 2, CentreX + 2};
         ArrayList<char[]> localArrayList = new ArrayList<>(5);
@@ -246,7 +240,14 @@ public class Map {
 
     }
 
-    protected String removeGold(int playerY, int playerX) {
+    /**
+     * Removes gold from the map if the player is standing on the gold.
+     *
+     * @param playerY : Y coordinate of the player.
+     * @param playerX : X coordinate of the player.
+     * @return : If the player successfully picked up gold.
+     */
+    String removeGold(int playerY, int playerX) {
         if (map[playerY][playerX] == 'G') {
             map[playerY][playerX] = '.';
             return "SUCCESS";
@@ -257,7 +258,14 @@ public class Map {
         }
     }
 
-    protected boolean onExit(int playerY, int playerX) {
+    /**
+     * Tests whether the player is stood on an exit tile.
+     *
+     * @param playerY : Y coordinate of the player.
+     * @param playerX : X coordinate of the player.
+     * @return : If the player is stood on an exit.
+     */
+    boolean onExit(int playerY, int playerX) {
         return map[playerY][playerX] == 'E';
     }
 

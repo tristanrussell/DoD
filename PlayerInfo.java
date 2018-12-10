@@ -3,7 +3,7 @@
  * modify the amount.
  *
  */
-public class PlayerInfo {
+class PlayerInfo {
 
     /* Current gold that the player has */
     private int gold;
@@ -14,7 +14,7 @@ public class PlayerInfo {
     /**
      * @return coordinates of the player.
      */
-    protected int[] getPlayerPosition () {
+    int[] getPlayerPosition() {
         return playerPosition;
     }
 
@@ -23,7 +23,7 @@ public class PlayerInfo {
      *
      * @param startPosition : The position to place the player.
      */
-    protected void loadStartPosition (int[] startPosition) {
+    void loadStartPosition(int[] startPosition) {
         playerPosition = startPosition;
     }
 
@@ -34,7 +34,7 @@ public class PlayerInfo {
      * @param direction : The direction that the player is moving on the axis.
      * @return : If the player successfully moved or not.
      */
-    protected String movePlayer (char axis, int direction) {
+    String movePlayer(char axis, int direction) {
         switch (axis) {
             case 'Y':
                 playerPosition[0] += direction;
@@ -52,23 +52,21 @@ public class PlayerInfo {
     /**
      * Default constructor.
      */
-    public PlayerInfo() {
+    PlayerInfo() {
         gold = 0;
     }
 
     /**
      * @return : The player's gold.
      */
-    public int getGold () {
+    int getGold() {
         return gold;
     }
 
     /**
      * Increment the player's gold by 1.
-     *
-     * @return : The player's gold after incrementing.
      */
-    public void incrementGold () {
+    void incrementGold() {
         gold++;
     }
 
