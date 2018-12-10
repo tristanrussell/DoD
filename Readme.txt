@@ -1,8 +1,8 @@
 Dungeons of Doom Instructions
 
-You are Zack, a brave fortune-hunter that has been sent on a mission to loot Lord Michael's cave of
-treasures. Your mission involves looting all the gold from Lord Michael's cave and then escaping.
-But be aware, Lord Michael will be roaming his cave. Should you get caught, it will be game over.
+You are Zack, a brave fortune-hunter that has been sent on a mission to loot Lord Michael's
+dungeon. Your mission involves looting all the gold and then escaping from the dungeon. But be
+aware, Lord Michael will be roaming his cave. Should you get caught, it will be game over.
 Good Luck!
 
 
