@@ -45,6 +45,7 @@ class HumanPlayer {
      * @return : Processed output or Invalid if the @param command is wrong.
      */
     String getNextAction(GameLogic logic, String command) {
+        // Remove direction from the move command
         String[] commandSplit = command.split(" ");
         command = commandSplit[0];
         switch (command) {
