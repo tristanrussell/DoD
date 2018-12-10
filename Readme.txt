@@ -24,6 +24,11 @@ be almost impossible, they must have at least one exit tile, they must have enou
 that the player can reach the win condition and they must only contain gold, exit, wall and blank
 tiles. The map must also have at least 12 tiles that are not gold.)
 
+Depending on the map size, up to three bots can play. If more than one bot can play then the game
+will ask you to input the number of bots you wish to play against. This can be a number between
+0 and the maximum number of bots for the map size. Entering a number too large will assume the
+maximum number of bots, entering a number less than zero will assume 0 bots.
+
 
 HOW TO PLAY:
 
