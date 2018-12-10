@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -21,6 +22,9 @@ public class GameLogic {
 
 	/* Status of the human player's turn */
 	private boolean playerTurn = false;
+
+	/* List of bots in the game */
+    private ArrayList<BotPlayer> botList;
 	
 	/**
 	 * Default constructor.
@@ -29,6 +33,7 @@ public class GameLogic {
 		map = new Map();
 		info = new PlayerInfo();
         bot = new BotPlayer();
+        botList = new ArrayList<>();
 	}
 
     /**
@@ -64,6 +69,13 @@ public class GameLogic {
     protected void changeMap(String location) throws FileNotFoundException, IllegalMapException {
         map = new Map(location);
     }
+
+    protected void addBot() {
+        BotPlayer newBot = new BotPlayer();
+        botList.add(newBot);
+    }
+
+    protected void loadStartPositions() {}
 
     /**
 	 * Returns the gold required to win.
@@ -247,7 +259,33 @@ public class GameLogic {
 
         } while (testDistance < 2);
 
-        logic.bot.loadStartPosition(botStartPosition);
+        int maxBots = logic.map.getMaxBots();
+        if (maxBots == 1) {
+            logic.addBot();
+            logic.bot.loadStartPosition(botStartPosition);
+
+        } else {
+            System.out.print("Enter the number of bots to load (max " + maxBots + "): ");
+            try {
+                BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+                String numInput = input.readLine();
+
+                int numOfBots = Integer.parseInt(numInput);
+                if (numOfBots > logic.map.getMaxBots()) {
+
+
+                } else {
+                    for (int i = 0; i < numOfBots; numOfBots--) {
+                        
+
+                    }
+                }
+
+            } catch (IOException | NumberFormatException e) {
+                System.out.println("Invalid input, loading 1 bot...");
+
+            }
+        }
 
         // DEBUGGING
         System.out.println("Map Name: " + logic.map.getMapName());
