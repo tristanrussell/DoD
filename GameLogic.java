@@ -14,9 +14,6 @@ public class GameLogic {
 	/* New PlayerGold object */
 	private PlayerInfo info;
 
-	/* New BotPlayer object */
-    private BotPlayer bot;
-
     /* Status of the game */
 	private boolean running = false;
 
@@ -32,7 +29,6 @@ public class GameLogic {
 	public GameLogic() {
 		map = new Map();
 		info = new PlayerInfo();
-        bot = new BotPlayer();
         botList = new ArrayList<>();
 	}
 
@@ -70,12 +66,54 @@ public class GameLogic {
         map = new Map(location);
     }
 
-    protected void addBot() {
-        BotPlayer newBot = new BotPlayer();
-        botList.add(newBot);
+    /**
+     * Creates a new bot and adds it to the bot list.
+     */
+    protected void addBot(int number) {
+        for (int i = 0; i < number; i++) {
+            BotPlayer newBot = new BotPlayer();
+            botList.add(newBot);
+
+        }
     }
 
-    protected void loadStartPositions() {}
+    protected void loadStartPositions() {
+        info.loadStartPosition(map.getRandomPosition());
+
+        int[] playerStartPosition = info.getPlayerPosition();
+        int[] botStartPosition;
+        int testDistance;
+        boolean taken;
+
+        for (int i = 0; i < botList.size(); i++) {
+            taken = false;
+            do {
+                botStartPosition = map.getRandomPosition();
+                int distY = Math.abs(playerStartPosition[0] - botStartPosition[0]);
+                int distX = Math.abs(playerStartPosition[1] - botStartPosition[1]);
+                testDistance = Math.max(distY, distX);
+                for (int j = 0; j < i; j++) {
+                    boolean testY = botStartPosition[0] == botList.get(j).getBotPosition()[0];
+                    boolean testX = botStartPosition[1] == botList.get(j).getBotPosition()[1];
+                    if (testY && testX) {
+                        taken = true;
+
+                    }
+                }
+
+            } while (testDistance < 2 && !taken);
+
+            botList.get(i).loadStartPosition(botStartPosition);
+
+        }
+    }
+
+    protected void moveBots() {
+        for (BotPlayer bot : botList) {
+            bot.takeTurn(map, info);
+
+        }
+    }
 
     /**
 	 * Returns the gold required to win.
@@ -145,14 +183,20 @@ public class GameLogic {
      */
     protected String look() {
         int[] playerPos = info.getPlayerPosition();
-        int[] botPos = bot.getBotPosition();
         char[][] localMap = map.getLocalMap(playerPos[0], playerPos[1]);
         localMap[2][2] = 'P';
-        int testY = Math.abs(playerPos[0] - botPos[0]);
-        int testX = Math.abs(playerPos[1] - botPos[1]);
-        if (testX < 3 && testY < 3) {
-            localMap[2 + (botPos[0] - playerPos[0])][2 + (botPos[1] - playerPos[1])] = 'B';
+
+        for (BotPlayer bot : botList) {
+            int[] botPos = bot.getBotPosition();
+            int testY = Math.abs(playerPos[0] - botPos[0]);
+            int testX = Math.abs(playerPos[1] - botPos[1]);
+
+            if (testX < 3 && testY < 3) {
+                localMap[2 + (botPos[0] - playerPos[0])][2 + (botPos[1] - playerPos[1])] = 'B';
+
+            }
         }
+
         String mapToString = "";
         for (char[] chars : localMap) {
             mapToString = mapToString.concat(new String(chars) + "\n");
@@ -198,12 +242,14 @@ public class GameLogic {
      * Checks if the player has been caught.
      */
     private void checkCaught() {
-        boolean sameY = info.getPlayerPosition()[0] == bot.getBotPosition()[0];
-        boolean sameX = info.getPlayerPosition()[1] == bot.getBotPosition()[1];
-        if(sameY && sameX) {
-            System.out.println("You have been caught\nLOSE");
-            System.exit(0);
+        for (BotPlayer bot : botList) {
+            boolean sameY = info.getPlayerPosition()[0] == bot.getBotPosition()[0];
+            boolean sameX = info.getPlayerPosition()[1] == bot.getBotPosition()[1];
+            if (sameY && sameX) {
+                System.out.println("You have been caught\nLOSE");
+                System.exit(0);
 
+            }
         }
     }
 	
@@ -245,24 +291,10 @@ public class GameLogic {
 
         }
 
-        logic.info.loadStartPosition(logic.map.getRandomPosition());
-
-        int[] playerStartPosition = logic.info.getPlayerPosition();
-        int[] botStartPosition;
-        int testDistance;
-
-        do {
-            botStartPosition = logic.map.getRandomPosition();
-            int testY = Math.abs(playerStartPosition[0] - botStartPosition[0]);
-            int testX = Math.abs(playerStartPosition[1] - botStartPosition[1]);
-            testDistance = Math.max(testY, testX);
-
-        } while (testDistance < 2);
-
         int maxBots = logic.map.getMaxBots();
         if (maxBots == 1) {
-            logic.addBot();
-            logic.bot.loadStartPosition(botStartPosition);
+            logic.addBot(1);
+            logic.loadStartPositions();
 
         } else {
             System.out.print("Enter the number of bots to load (max " + maxBots + "): ");
@@ -271,26 +303,35 @@ public class GameLogic {
                 String numInput = input.readLine();
 
                 int numOfBots = Integer.parseInt(numInput);
-                if (numOfBots > logic.map.getMaxBots()) {
-
+                if (numOfBots > maxBots) {
+                    System.out.println("Too many bots, loading " + maxBots + " bots...");
+                    logic.addBot(maxBots);
+                    logic.loadStartPositions();
 
                 } else {
-                    for (int i = 0; i < numOfBots; numOfBots--) {
-                        
+                    logic.addBot(numOfBots);
+                    logic.loadStartPositions();
 
-                    }
                 }
 
-            } catch (IOException | NumberFormatException e) {
+            } catch(NumberFormatException e) {
                 System.out.println("Invalid input, loading 1 bot...");
+                logic.addBot(1);
+                logic.loadStartPositions();
+
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+                System.exit(1);
 
             }
         }
 
-        // DEBUGGING
         System.out.println("Map Name: " + logic.map.getMapName());
 
+        // DEBUGGING
+        /*
         char[][] newMap = logic.map.getMap();
+        int[] playerStartPosition = logic.info.getPlayerPosition();
 
         for (int y = 0; y < newMap.length; y++) {
             if (y == playerStartPosition[0] || y == botStartPosition[0]) {
@@ -316,6 +357,7 @@ public class GameLogic {
 
         }
 
+        */
         System.out.println(Arrays.toString(logic.info.getPlayerPosition()));
         //END OF DEBUGGING
 
@@ -330,7 +372,8 @@ public class GameLogic {
             logic.checkCaught();
 
             /* Bot Player turn */
-            logic.bot.takeTurn(logic.map, logic.info);
+            logic.moveBots();
+            //logic.bot.takeTurn(logic.map, logic.info);
 
             logic.checkCaught();
         }
