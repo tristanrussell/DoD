@@ -80,13 +80,18 @@ public class GameLogic {
         int testDistance;
         boolean taken;
 
+        // For each is not used as the index of the bot is required inside the loop
         for (int i = 0; i < botList.size(); i++) {
             taken = false;
+
+            // Assign each bot to a tile not within two tiles of the player
             do {
                 botStartPosition = map.getRandomPosition();
                 int distY = Math.abs(playerStartPosition[0] - botStartPosition[0]);
                 int distX = Math.abs(playerStartPosition[1] - botStartPosition[1]);
                 testDistance = Math.max(distY, distX);
+
+                // Checks if any of the bots have already taken this tile
                 for (int j = 0; j < i; j++) {
                     boolean testY = botStartPosition[0] == botList.get(j).getBotPosition()[0];
                     boolean testX = botStartPosition[1] == botList.get(j).getBotPosition()[1];
@@ -169,7 +174,7 @@ public class GameLogic {
                 return "FAIL";
 
             default:
-                return "FAIL";
+                return "Invalid direction entered";
 
         }
     }
@@ -244,6 +249,7 @@ public class GameLogic {
         for (BotPlayer bot : botList) {
             boolean sameY = info.getPlayerPosition()[0] == bot.getBotPosition()[0];
             boolean sameX = info.getPlayerPosition()[1] == bot.getBotPosition()[1];
+            // If both X and Y coordinates are the same then the player has been caught
             if (sameY && sameX) {
                 setGameRunning(false);
                 System.out.println("You have been caught\nLOSE");
@@ -254,6 +260,7 @@ public class GameLogic {
     }
 	
 	public static void main(String[] args) {
+        /* SETUP */
 		GameLogic logic = new GameLogic();
 
         System.out.println("Enter a file location for your map or leave blank for the default map: ");
@@ -311,11 +318,11 @@ public class GameLogic {
 
                 } else {
                     System.out.println("Loading " + Math.max(numOfBots, 0) + " bots...\n");
+                    // if numOfBots is less than zero then the method works just the same as zero
                     logic.addBot(numOfBots);
                     logic.loadStartPositions();
 
                 }
-
             } catch(NumberFormatException e) {
                 System.out.println("Invalid input, loading 1 bot...\n");
                 logic.addBot(1);
@@ -331,9 +338,12 @@ public class GameLogic {
         HumanPlayer player = new HumanPlayer();
         logic.setGameRunning(true);
         System.out.println("The hunt begins.\n");
+        /* GAME */
         while (logic.gameRunning()) {
             /* Human Player turn */
+            // Asks for player input
             String command = player.getInputFromConsole();
+            // Sends the command to be processed, retrieves a string to be printed
             String toPrint = player.getNextAction(logic, command);
             System.out.println(toPrint);
 
