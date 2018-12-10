@@ -122,23 +122,11 @@ public class Map {
      * @throws IllegalMapException : If there is an error in the map.
      */
     protected void checkMap() throws IllegalMapException {
-        int maxLineLength = 0;
         int spaceCount = 0;
         int goldCount = 0;
         int exitCount = 0;
 
-        if (map.length < 5) {
-            throw new IllegalMapException();
-
-        }
-
-        for (char[] line : map) {
-            if (line.length > maxLineLength) {
-                maxLineLength = line.length;
-
-            }
-
-            for (char c : line) {
+        for (char[] line : map) {for (char c : line) {
                 switch (c) {
                     case '.':
                         spaceCount++;
@@ -164,20 +152,21 @@ public class Map {
             }
         }
 
-        if ((exitCount < 1) || (goldCount < goldRequired) || (maxLineLength < 5) || (goldCount > spaceCount - 12)) {
+        if (exitCount < 1 || goldCount < goldRequired) {
             throw new IllegalMapException();
 
         }
 
-        if (spaceCount < 50) {
+        if (spaceCount < 25 || spaceCount - 9 <= goldCount) {
+            maxBots = 0;
+
+        } else if (spaceCount < 50 || spaceCount - 10 <= goldCount) {
             maxBots = 1;
 
-        } else if (spaceCount < 100) {
+        } else if (spaceCount < 100 || spaceCount - 11 <= goldCount) {
             maxBots = 2;
 
         }
-
-
     }
 
     /**

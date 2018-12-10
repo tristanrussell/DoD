@@ -292,8 +292,7 @@ public class GameLogic {
         }
 
         int maxBots = logic.map.getMaxBots();
-        if (maxBots == 1) {
-            logic.addBot(1);
+        if (maxBots == 0) {
             logic.loadStartPositions();
 
         } else {
