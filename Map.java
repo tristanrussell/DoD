@@ -91,7 +91,15 @@ class Map {
                         goldRequired = Integer.parseInt(newLine.substring(4));
 
                     } else {
-                        mapArrayList.add(newLine.toCharArray());
+                        char[] newArray = newLine.toCharArray();
+                        // Handle space characters by changing them to walls
+                        for (int i = 0; i < newArray.length; i++) {
+                            if (newArray[i] == ' ') {
+                                newArray[i] = '#';
+
+                            }
+                        }
+                        mapArrayList.add(newArray);
 
                     }
 
