@@ -261,7 +261,15 @@ public class GameLogic {
             }
         }
     }
-	
+
+    /**
+     * This is the main method that capture's input from the user to set up
+     * the map and bots and then repeatedly calls functions for the player's
+     * turn and then the bots turn.
+     *
+     * @param args
+     *      Unused
+     */
 	public static void main(String[] args) {
         /* SETUP */
 		GameLogic logic = new GameLogic();
