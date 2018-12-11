@@ -12,6 +12,13 @@ class PlayerInfo {
     private int[] playerPosition;
 
     /**
+     * Default constructor.
+     */
+    PlayerInfo() {
+        gold = 0;
+    }
+
+    /**
      * @return coordinates of the player.
      */
     int[] getPlayerPosition() {
@@ -46,14 +53,8 @@ class PlayerInfo {
 
             default:
                 return "FAIL";
-        }
-    }
 
-    /**
-     * Default constructor.
-     */
-    PlayerInfo() {
-        gold = 0;
+        }
     }
 
     /**

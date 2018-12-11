@@ -80,13 +80,14 @@ class Map {
         try {
             BufferedReader line = new BufferedReader(newMap);
 
+            // Iterate through each line and check its contents
             while ((newLine = line.readLine()) != null) {
                 String[] lineSplit = newLine.split(" ");
                 if (lineSplit.length != 0) {
-                    if (lineSplit[0].equals("name")) {
+                    if (lineSplit[0].toLowerCase().equals("name")) {
                         mapName = newLine.substring(5);
 
-                    } else if (lineSplit[0].equals("win")) {
+                    } else if (lineSplit[0].toLowerCase().equals("win")) {
                         goldRequired = Integer.parseInt(newLine.substring(4));
 
                     } else {
@@ -114,23 +115,23 @@ class Map {
      * @throws IllegalMapException : If there is an error in the map.
      */
     private void checkMap() throws IllegalMapException {
-        int spaceCount = 0;
+        int tileCount = 0;
         int goldCount = 0;
         int exitCount = 0;
 
         for (char[] line : map) {for (char c : line) {
                 switch (c) {
                     case '.':
-                        spaceCount++;
+                        tileCount++;
                         break;
 
                     case 'G':
-                        spaceCount++;
+                        tileCount++;
                         goldCount++;
                         break;
 
                     case 'E':
-                        spaceCount++;
+                        tileCount++;
                         exitCount++;
                         break;
 
@@ -144,18 +145,20 @@ class Map {
             }
         }
 
+        // Throw exception if there isn't enough gold to beat the game
         if (exitCount < 1 || goldCount < goldRequired) {
             throw new IllegalMapException();
 
         }
 
-        if (spaceCount < 25 || spaceCount - 9 <= goldCount) {
+        // Calculate the maximum number of bot depending on the map
+        if (tileCount < 25 || tileCount - 9 <= goldCount) {
             maxBots = 0;
 
-        } else if (spaceCount < 50 || spaceCount - 10 <= goldCount) {
+        } else if (tileCount < 50 || tileCount - 10 <= goldCount) {
             maxBots = 1;
 
-        } else if (spaceCount < 100 || spaceCount - 11 <= goldCount) {
+        } else if (tileCount < 100 || tileCount - 11 <= goldCount) {
             maxBots = 2;
 
         }
@@ -166,6 +169,7 @@ class Map {
      */
     int getMaxBots() {
         return maxBots;
+
     }
 
     /**
@@ -189,7 +193,7 @@ class Map {
     }
 
     /**
-     * Checks if there is a wall at the specified location.
+     * Checks if there is a wall or the edge of the map at the specified location.
      *
      * @param posY : Y coordinate of specified location.
      * @param posX : X coordinate of specified location.
@@ -200,23 +204,27 @@ class Map {
         boolean xInRange = false;
         if (yInRange) {
             xInRange = (posX >= 0 && posX < map[posY].length);
+
         }
         return (yInRange && xInRange && map[posY][posX] != '#');
+
     }
 
     /**
      * Constructs a 5 x 5 grid around the specified location.
      *
-     * @param CentreY : The y coordinate of the centre point.
-     * @param CentreX : The x coordinate of the centre point.
+     * @param centreY : The y coordinate of the centre point.
+     * @param centreX : The x coordinate of the centre point.
      * @return : The constructed grid.
      */
-    char[][] getLocalMap(int CentreY, int CentreX) {
-        int[] start = {CentreY - 2, CentreX - 2};
-        int[] end = {CentreY + 2, CentreX + 2};
+    char[][] getLocalMap(int centreY, int centreX) {
+        int[] start = {centreY - 2, centreX - 2};
+        int[] end = {centreY + 2, centreX + 2};
         ArrayList<char[]> localArrayList = new ArrayList<>(5);
+
         for (int y = start[0]; y <= end[0]; y++) {
             char[] row = new char[5];
+            // If index is out of bounds place a wall
             if (y < 0 || y > map.length - 1) {
                 for (int x = 0; x < 5; x++) {
                     row[x] = '#';
@@ -224,6 +232,7 @@ class Map {
                 }
             } else {
                 for (int x = 0; x + start[1] <= end[1]; x++) {
+                    // If index is out of bounds place a wall
                     if (x + start[1] < 0 || x + start[1] > map[y].length - 1) {
                         row[x] = '#';
 
@@ -267,6 +276,7 @@ class Map {
      */
     boolean onExit(int playerY, int playerX) {
         return map[playerY][playerX] == 'E';
+
     }
 
 }

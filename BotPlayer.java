@@ -38,6 +38,7 @@ class BotPlayer {
      */
     void loadStartPosition(int[] startPosition) {
         botPosition = startPosition;
+
     }
 
     /**
@@ -45,6 +46,7 @@ class BotPlayer {
      */
     int[] getBotPosition() {
         return botPosition;
+
     }
 
     /**
@@ -77,9 +79,12 @@ class BotPlayer {
                 break;
 
             case "MOVE":
+                // Limit the amount of move attempts the bot can make in case it gets stuck
+                int attempt = 1;
                 do {
                     hasMoved = move(map, randDirection());
-                } while(!hasMoved);
+
+                } while(!hasMoved && attempt++ < 5);
                 break;
 
             default:
@@ -99,6 +104,7 @@ class BotPlayer {
         int testY = Math.abs(playerPos[0] - botPosition[0]);
         int testX = Math.abs(playerPos[1] - botPosition[1]);
 
+        // Checks if player is within the bot's look range
         if (testX < 3 && testY < 3) {
             playerPosition[0] = 2 + playerPos[0] - botPosition[0];
             playerPosition[1] = 2 + playerPos[1] - botPosition[1];
@@ -128,6 +134,7 @@ class BotPlayer {
      * @return : Whether the move was successful.
      */
     private boolean move(Map map, char direction) {
+        // If the bot knows where the player was then it will move towards the player
         if (isPlayer) {
             if(Math.abs(savedPosition[0] - playerPosition[0]) > Math.abs(savedPosition[1] - playerPosition[1])) {
                 if (savedPosition[0] < playerPosition[0]) {
