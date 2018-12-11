@@ -29,7 +29,13 @@ ease of use. If you put your map files in here you simply need to type the name 
 excluding the .txt extension. I wasn't sure if I was able to do this due to the submission
 guidelines so I did get permission from Zack. Also some pre-made maps have been included that you
 may use, if you would like to take a look at them I encourage you to do so as they demonstrate some
-of the odd shaped maps and exceptions that my game can handle which makes it more robust.)
+of the odd shaped maps and exceptions that my game can handle which makes it more robust.
+For example:
+    - Maps can have spaces ' ' in them and these will be converted to walls '#' by the game, this is
+      demonstrated by the map "holes".
+    - Maps do not need walls surrounding them, the walls are added by the game, this is
+      demonstrated by the map "walls_demo"
+    - Maps do not have to be square, this is demonstrated by the map "jagged" and "diamond")
 
 Depending on the map size, up to three bots can play. If the map is large enough that bots can play
 then the game will ask you how many bots you'd like to play against. This can be a number between
