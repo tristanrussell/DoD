@@ -26,10 +26,9 @@ must also have at least 12 tiles that are not gold.)
 (SIDE NOTE FOR EXAMINER: Although you are welcome to use absolute paths to access map files when
 running the game, I have included another folder called maps within the Project folder to increase
 ease of use. If you put your map files in here you simply need to type the name of the file,
-excluding the .txt extension. I wasn't sure if I was able to do this due to the submission
-guidelines so I did get permission from Zack. Also some pre-made maps have been included that you
-may use, if you would like to take a look at them I encourage you to do so as they demonstrate some
-of the odd shaped maps and exceptions that my game can handle which makes it more robust.
+excluding the .txt extension. Also some pre-made maps have been included that you may use, if you
+would like to take a look at them I encourage you to do so as they demonstrate some of the odd
+shaped maps and exceptions that my game can handle which makes it more robust.
 For example:
     - Maps can have spaces ' ' in them and these will be converted to walls '#' by the game, this is
       demonstrated by the map "holes".
