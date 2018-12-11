@@ -14,11 +14,10 @@ sure to keep all of these files together in one folder.
 To run the game, run the Java byte code file you have just created called GameLogic.class .
 
 The game will launch on the command line and ask you for a map file. You can type in a file
-location for your map or if your map file is in the maps folder and you have run your code from
-within the Project folder then you can just type the name of your map file to play it. If you do
-not have a map file to use, you can just click Enter and the default map,
-'Very small Labyrinth of Doom', will be loaded. In the case that the map file location you
-specified cannot be found or accessed, this default map will be loaded.
+location for your map or if your map file is in the maps folder then you can just type the name of
+your map file to play it. If you do not have a map file to use, you can just click Enter and the
+default map, 'Very small Labyrinth of Doom', will be loaded. In the case that the map file location
+you specified cannot be found or accessed, this default map will be loaded.
 
 (NOTE: maps must have at least one exit tile, they must have enough gold tiles so that the player
 can reach the win condition and they must only contain gold, exit, wall and blank tiles. The map
@@ -27,14 +26,13 @@ must also have at least 12 tiles that are not gold.)
 (SIDE NOTE FOR EXAMINER: The accepted file location varies depending on where you are running the
 program, when it was ran within an IDE the file path required was the absolute path
 e.g. C:\.....\yourMapFile.txt . However when running it on linux.bath the relative file path was
-required. For this reason, and I have got permission to do this as I know it may break the
-submission guidelines, I have included another folder called maps as well as Project and
-Readme.txt . If you put your map files in here you simply need to type the name of the file,
-excluding the .txt extension, although this will only work if you run the code from the Project
-folder. If this fails then please try again using the absolute path. Also some pre-made maps have
-been included that you may use, if you would like to take a look at them I encourage you to do so
-as they demonstrate some of the odd shaped maps and exceptions that my game can handle which makes
-it more robust.)
+required. For this reason, and I have gotten permission to do this as I know it may break the
+submission guidelines, I have included another folder called maps within the Project folder. If you
+put your map files in here you simply need to type the name of the file, excluding the .txt
+extension, although this will only work if you run the code from the Project folder. If this fails
+then please try again using the absolute path. Also some pre-made maps have been included that you
+may use, if you would like to take a look at them I encourage you to do so as they demonstrate some
+of the odd shaped maps and exceptions that my game can handle which makes it more robust.)
 
 Depending on the map size, up to three bots can play. If the map is large enough that bots can play
 then the game will ask you how many bots you'd like to play against. This can be a number between
