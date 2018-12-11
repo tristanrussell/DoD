@@ -77,8 +77,11 @@ class Map {
         // Allows for relative and absolute paths as explained in Readme.txt
         if (fileName.contains("/") || fileName.contains("\\")) {
             newMap = new FileReader(fileName);
+
         } else {
+            // Append the relative path to the maps folder
             newMap = new FileReader("..//maps//" + fileName + ".txt");
+
         }
 
         String newLine;
