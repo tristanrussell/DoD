@@ -73,7 +73,14 @@ class Map {
      * @throws FileNotFoundException : If the file is not found.
      */
     private void readMap(String fileName) throws FileNotFoundException {
-        FileReader newMap = new FileReader(fileName);
+        FileReader newMap;
+        // Allows for relative and absolute paths as explained in Readme.txt
+        if (fileName.contains("/") || fileName.contains("\\")) {
+            newMap = new FileReader(fileName);
+        } else {
+            newMap = new FileReader("..//maps//" + fileName + ".txt");
+        }
+
         String newLine;
         ArrayList<char[]> mapArrayList = new ArrayList<>();
 
