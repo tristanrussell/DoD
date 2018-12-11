@@ -282,7 +282,7 @@ public class GameLogic {
             location = location.split(" ")[0];
 
             if (location.length() > 0) {
-                System.out.println("Loading map from file location...");
+                System.out.println("\nLoading map from file location...");
                 logic.changeMap(location);
 
             } else {
