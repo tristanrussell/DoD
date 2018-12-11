@@ -232,9 +232,11 @@ public class GameLogic {
         setGameRunning(false);
         int[] player = info.getPlayerPosition();
         if (map.onExit(player[0], player[1]) && (info.getGold() >= map.getGoldRequired())) {
+            System.out.println("You successfully looted the dungeon.");
             System.out.println("WIN");
 
         } else {
+            System.out.println("You failed to loot the dungeon and escape.");
             System.out.println("LOSE");
 
         }
@@ -252,7 +254,8 @@ public class GameLogic {
             // If both X and Y coordinates are the same then the player has been caught
             if (sameY && sameX) {
                 setGameRunning(false);
-                System.out.println("You have been caught\nLOSE");
+                System.out.println("You have been caught.");
+                System.out.println("LOSE");
                 System.exit(0);
 
             }
