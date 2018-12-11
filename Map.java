@@ -1,4 +1,5 @@
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -79,8 +80,10 @@ class Map {
             newMap = new FileReader(fileName);
 
         } else {
+            // Find the maps folder
+            URL url = getClass().getResource("maps");
             // Append the relative path to the maps folder
-            newMap = new FileReader("..//maps//" + fileName + ".txt");
+            newMap = new FileReader(url.getPath() + "/" + fileName + ".txt");
 
         }
 
