@@ -1,4 +1,4 @@
-name diamond
+name Diamond
 win 2
     ....E..
   ...........
