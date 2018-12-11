@@ -2,7 +2,7 @@ Dungeons of Doom Instructions
 
 You are Zack, a brave fortune-hunter that has been sent on a mission to loot Lord Michael's
 dungeon. Your mission involves looting all the gold and then escaping from the dungeon. But be
-aware, Lord Michael will be roaming his cave. Should you get caught, it will be game over.
+aware, Lord Michael will be roaming his dungeon. Should you get caught, it will be game over.
 Good Luck!
 
 
@@ -73,6 +73,6 @@ Also, valid inputs will use a turn whether they succeed or not.)
 
 After you have finished your turn, Lord Michael will take his turn. Lord Michael takes turns just
 like you however his only goal is to catch you. He will not need to stop to pickup gold or exit
-the cave, therefore he will only use the MOVE and LOOK commands.
+the dungeon, therefore he will only use the MOVE and LOOK commands.
 
 Good Luck!
