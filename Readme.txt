@@ -28,10 +28,11 @@ e.g. C:\.....\yourMapFile.txt . However when running it on linux.bath the relati
 required. For this reason, and I would like to stress I got permission to do this as I know it may
 break the submission guidelines, I have included another folder called maps as well as Project
 and Readme.txt . If you put your map files in here you simply need to type the name of the file,
-excluding the .txt extension. If this fails then please try again using the absolute path. Also
-some pre-made maps have been included that you may use, if you would like to take a look at them
-I encourage you to do so as they demonstrate some of the odd shaped maps and exceptions that my
-game can handle which make it more robust.)
+excluding the .txt extension, although this will only work if you run the code from the Project
+folder. If this fails then please try again using the absolute path. Also some pre-made maps have
+been included that you may use, if you would like to take a look at them I encourage you to do so
+as they demonstrate some of the odd shaped maps and exceptions that my game can handle which makes
+it more robust.)
 
 Depending on the map size, up to three bots can play. If the map is large enough that bots can play
 then the game will ask you how many bots you'd like to play against. This can be a number between
