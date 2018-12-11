@@ -71,8 +71,8 @@ have the option of 6 different actions on your turn, these should be typed into 
 case sensitive but you WILL miss your go for misspelling a command or entering an invalid command.
 Also, valid inputs will use a turn whether they succeed or not.)
 
-After you have finished your turn, Lord Michael will take his turn. Lord Michael takes turns just
-like you however his only goal is to catch you. He will not need to stop to pickup gold or exit
-the dungeon, therefore he will only use the MOVE and LOOK commands.
+After you have finished your turn, Lord Michael will take his turn (if you are playing with bots).
+Lord Michael takes turns just like you however his only goal is to catch you. He will not need to
+stop to pickup gold or exit the dungeon, therefore he will only use the MOVE and LOOK commands.
 
 Good Luck!
