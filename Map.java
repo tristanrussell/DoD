@@ -173,6 +173,8 @@ class Map {
         }
 
         // Calculate the maximum number of bot depending on the map
+        // Bots cannot be placed too close to the player and cannot spawn on gold
+        // Limit the number of bots depending on free spawn space
         if (tileCount < 25 || tileCount - 9 <= goldCount) {
             maxBots = 0;
 
