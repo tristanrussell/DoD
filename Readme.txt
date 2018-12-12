@@ -41,6 +41,13 @@ then the game will ask you how many bots you'd like to play against. This can be
 zero and the maximum number of bots for the map size. Entering a number too large will assume the
 maximum number of bots, entering a number less than zero will assume zero bots.
 
+The maximum number of bots for a map will not exceed 3, the bots are programmed to use their first
+action to look and then they will move randomly until they reach the edge of the grid that they
+saved in memory the last time they looked. If a bot spots a player then it will remember the
+position of the player and then move to where the player was. When the bot reaches the players
+location it will look again and if it sees the player it will repeat this process, if it does not
+it will go back to moving randomly.
+
 
 HOW TO PLAY:
 
