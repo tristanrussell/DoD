@@ -74,7 +74,7 @@ class HumanPlayer {
                 logic.quitGame();
 
             default:
-                return "Invalid command";
+                return "Invalid command\n";
 
         }
     }

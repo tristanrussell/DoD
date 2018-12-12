@@ -274,7 +274,7 @@ public class GameLogic {
         /* SETUP */
 		GameLogic logic = new GameLogic();
 
-        System.out.println("Enter a file location for your map or leave blank for the default map: ");
+        System.out.println("Enter the name of a map or leave blank for the default map: ");
 
         try {
             BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
